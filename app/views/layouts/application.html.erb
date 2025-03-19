@@ -10,20 +10,70 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <style> 
+      .logo-container {
+        position: relative;
+        width: 140px;
+        height: 80px;
+        cursor: pointer;
+        padding: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .logo-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: opacity 0.3s ease;
+      }
+
+      .logo-normal {
+        opacity: 1;
+      }
+
+      .logo-hover, .logo-active {
+        opacity: 0;
+      }
+
+      .logo-container:hover .logo-normal {
+        opacity: 0;
+      }
+
+      .logo-container:hover .logo-hover {
+        opacity: 1;
+      }
+
+      .logo-container:active .logo-hover {
+        opacity: 0;
+      }
+
+      .logo-container:active .logo-active {
+        opacity: 1;
+      }
+
+      .header-container {
+        padding: 0.5rem 0.5rem;
+        background-color: white;
+      }
+      </style> 
+
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <div class="header-container">
+      <%= render partial: "header/logo" %>
+    </div>
+    <main class="container mx-auto mt-8 px-8 flex">
       <%= yield %>
     </main>
   </body>
