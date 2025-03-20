@@ -14,7 +14,8 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
     <style> 
@@ -65,16 +66,15 @@
         padding: 0.5rem 0.5rem;
         background-color: white;
       }
-      </style> 
-
+    </style> 
   </head>
 
   <body>
     <div class="header-container">
       <%= render partial: "header/logo" %>
     </div>
-    <main class="container mx-auto mt-8 px-8 flex">
-      <% render partial: "header/flash" %>
+    <main class="container mx-auto flex">
+      <%= render partial: "header/flash" if lookup_context.exists?("header/_flash") %>
       <%= yield %>
     </main>
   </body>
