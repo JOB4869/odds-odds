@@ -6,26 +6,20 @@
     <div class="py-2 w-full">
       <h1 class="text-2xl font-semibold flex items-center text-gray-800">
         <span class="material-symbols-outlined mr-2">
-          person_add
+          login
         </span>
-        สร้างบัญชีผู้ใช้ใหม่
+        เข้าสู่ระบบ
       </h1>
     </div>
-    <div class="py-2 flex justify-end">
+    <div class="py-2 w-full">
+      <p class="text-gray-600 text-base "> 
+        เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน
+      </p>
+    </div>
+    <div class="py-2 flex justify-end ">
       <span class="text-sm text-blue-600">โปรดระบุ *</span>
     </div>
-    <%= form_with model: @user, url: sign_up_path, class: "space-y-4", data: { controller: "password-toggle" } do |form| %>
-      <% if @user.errors.any? %>
-        <div class="bg-red-100 text-sm text-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <strong class="font-bold">เกิดข้อผิดพลาด!</strong>
-          <ul class="mt-1">
-            <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-      
+    <%= form_with url: sign_in_path, class: "space-y-4", data: { controller: "password-toggle" } do |form| %>
       <div class="space-y-1">
         <div class="flex items-center">
           <%= form.label :email, "อีเมล", class: "block text-base font-medium text-gray-700" %>
@@ -56,23 +50,6 @@
         </p>
       </div>
 
-      <div class="space-y-1">
-        <div class="flex items-center">
-          <%= form.label :password_confirmation, "ยืนยันรหัสผ่าน", class: "block text-base font-medium text-gray-700" %>
-          &nbsp;
-          <span class="text-base text-blue-600 ml-1">*</span>
-        </div>
-        <div class="relative">
-          <%= form.password_field :password_confirmation,
-              class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกรหัสผ่าน",
-              data: { password_toggle_target: "password" } %>
-        </div>
-         <p class="text-sm text-gray-500 mt-1">
-          รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-        </p>
-      </div>
-
       <div class="flex items-center space-x-2 mt-4">
         <div class="flex items-center">
           <%= form.check_box :show_password,
@@ -86,9 +63,15 @@
       </div>
 
       <div class="mt-6">
-        <%= form.submit "สร้างบัญชีผู้ใช้",
+        <%= form.submit "เข้าสู่ระบบ",
             class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
       </div>
     <% end %>
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-600">
+        ยังไม่มีบัญชี? 
+        <%= link_to "สร้างบัญชีใหม่", sign_up_path, class: "text-blue-600 hover:text-blue-800" %>
+      </p>
+    </div>
   </div>
 </div>
