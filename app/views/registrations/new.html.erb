@@ -1,0 +1,21 @@
+<h1>สร้างบัญชีผู้ใช้ใหม่</h1>
+
+<%= form_with model: @user, url: sign_up_path do |form| %>
+    <div class="mb-4">
+        <%= form.label :"อีเมล" %>
+        <%= form.email_field :email, class: "form-control", placeholder: "กรุณากรอกอีเมลที่ใช้งาน" %>
+    </div>
+    <div class="mb-4">    
+        <%= form.label :"รหัสผ่าน" %>
+        <%= form.password_field :password, class: "form-control", placeholder: "กรุณากรอกรหัสผ่าน" %>
+    </div>
+    <div class="mb-4">
+        <%= form.label :"ยืนยันรหัสผ่าน" %>
+        <%= form.password_field :password_confirmation, class: "form-control", placeholder: "กรุณากรอกรหัสผ่าน" %>
+    </div>
+
+    <div class="mb-4">
+        <%= form.submit "สร้างบัญชีของฉัน", class: "btn btn-primary"
+         %>
+    </div>
+<% end %>
