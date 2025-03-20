@@ -7,7 +7,8 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to new_session_path, notice: "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว"
+      session[:user_id] = @user.id
+      redirect_to new_session_path, notice: "ขอบคุณสำหรับการลงทะเบียน"
     else
       render :new, status: :unprocessable_entity
     end
