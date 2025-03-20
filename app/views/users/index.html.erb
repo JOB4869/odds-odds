@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="flex flex-col items-center w-full max-w-md mx-auto  bg-white shadow-lg rounded-lg p-6 py-2">
+
+  <div class="w-full">
+    <div class="py-2 w-full">
+      <h1 class="text-2xl font-semibold flex items-center text-gray-800">
+        <span class="material-symbols-outlined mr-2">
+          person
+        </span>
+        บัญชีผู้ใช้
+      </h1>
+    </div>
+
+    <div class="space-y-2">
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3 ">order_approve</span>
+        &nbsp;
+        <span>รายการสินค้าที่ซื้อ</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">box_add</span>
+        &nbsp;
+        <span>เพิ่มรายการสินค้า</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">inventory</span>
+        &nbsp;
+        <span>สินค้าที่ขายแล้ว</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">edit</span>
+        &nbsp;
+        <span>แก้ไขบัญชี</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">distance</span>
+        &nbsp;
+        <span>ที่อยู่ที่บันทึกไว้</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">key</span>
+        &nbsp;
+        <span>เปลี่ยนรหัสผ่านของฉัน</span>
+      <% end %>
+
+      <%= link_to "#", class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors" do %>
+        <span class="material-symbols-outlined text-gray-600 mr-3">qr_code_2</span>
+        &nbsp;
+        <span>QR Code รับเงิน</span>
+      <% end %>
+
+      <%= link_to sign_out_path, data: { turbo_method: :delete }, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-red-50 rounded-md hover:bg-red-100 transition-colors mt-8" do %>
+        <span class="material-symbols-outlined text-red-600 mr-3">logout</span>
+        &nbsp;
+        <span class="text-red-600">ออกจากระบบ</span>
+      <% end %>
+    </div>
+  </div>
+</div>

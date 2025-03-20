@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   delete "sign_out", to: "sessions#destroy", as: :sign_out
 
+  get "users", to: "users#index"
+
   root "home#index"
 end
