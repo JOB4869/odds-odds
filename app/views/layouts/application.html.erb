@@ -63,9 +63,22 @@
       }
 
       .header-container {
-        padding: 0.5rem 0.5rem;
+        margin-bottom: 0.5rem;
         background-color: white;
       }
+
+      .bottom-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: transparent;
+        text-align: center;
+        z-index: 1000; 
+      }
+      .content {
+        margin-bottom: 80px;
+      }
+
     </style> 
   </head>
 
@@ -73,9 +86,12 @@
     <div class="header-container">
       <%= render partial: "header/logo" %>
     </div>
-    <main class="container mx-auto flex">
+    <main class="container mx-auto flex content">
       <%= render partial: "header/flash" if lookup_context.exists?("header/_flash") %>
-      <%= yield %>
+        <%= yield %>
     </main>
+    <div class="bottom-container">
+      <%= yield :footer %>
+    </div>
   </body>
 </html>
