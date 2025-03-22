@@ -19,7 +19,7 @@
       <span class="text-sm text-blue-600">โปรดระบุ *</span>
     </div>
 
-    <%= form_with model: @user, url: password_reset_edit_path(token: params[:token]) class: "space-y-4" do |form| %>
+    <%= form_with model: @user, url: password_reset_edit_path(token: params[:token]), class: "space-y-4" do |form| %>
       <div class="space-y-1">
         <div class="flex items-center">
           <%= form.label :password, "รหัสผ่าน", class: "block text-base font-medium text-gray-700" %>
@@ -29,7 +29,7 @@
         <div class="relative">
           <%= form.password_field :password,
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกรหัสผ่าน"
+              placeholder: "กรุณากรอกรหัสผ่าน",
               data: { password_toggle_target: "password" } %>
         </div>
         <p class="text-sm text-gray-500 mt-1">
@@ -46,7 +46,7 @@
         <div class="relative">
           <%= form.password_field :password_confirmation,
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกรหัสผ่าน"
+              placeholder: "กรุณากรอกรหัสผ่าน",
               data: { password_toggle_target: "password" } %>
         </div>
          <p class="text-sm text-gray-500 mt-1">
