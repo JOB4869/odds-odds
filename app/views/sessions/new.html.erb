@@ -62,12 +62,16 @@
         </div>
       </div>
 
-      <div class="mt-6">
+      <div class="mt-8">
+          <%= link_to "ลืมรหัสผ่าน", password_reset_path, class: "text-base underline decoration-2" %>
+      </div>
+
+      <div class="mt-8">
         <%= form.submit "เข้าสู่ระบบ",
             class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
       </div>
     <% end %>
-    <div class="mt-4 text-center">
+    <div class="mt-4">
       <p class="text-sm text-gray-600">
         ยังไม่มีบัญชี? 
         <%= link_to "สร้างบัญชีใหม่", sign_up_path, class: "text-blue-600 hover:text-blue-800" %>
