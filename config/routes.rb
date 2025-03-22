@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   get "users", to: "users#index"
 
+  get "beers", to: "beers#index"
+
   root "home#index"
 end
