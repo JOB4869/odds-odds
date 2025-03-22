@@ -8,10 +8,13 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to additional_info_path
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def additional_info
   end
 
   private

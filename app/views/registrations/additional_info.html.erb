@@ -15,6 +15,28 @@
       <p class="text-black text-base "> 
         ขอบคุณสำหรับการลงทะเบียน
       </p>
-    </div>  
+    </div> 
+
+      <% content_for :users do %>
+        <%= render "bottom/button/users" %>
+      <% end %>
+
+      <% content_for :home_page do %>
+        <%= render "bottom/button/home_page" %>
+      <% end %>
+
+      <% content_for :beer_odds do %>
+        <%= render "bottom/button/beer_odds" %>
+      <% end %>
+
+      <% content_for :add_address do %>
+        <%= render "bottom/button/add_address" %>
+      <% end %>
+
+      <% content_for :add_qr_code do %>
+        <%= render "bottom/button/add_qr_code" %>
+      <% end %>
+      
+    </div>
   </div>
 </div>

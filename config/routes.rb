@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "sign_up", to: "registrations#new", as: :sign_up
   post "sign_up", to: "registrations#create"
 
+  get "additional_info", to: "registrations#additional_info"
+
   get "sign_in", to: "sessions#new", as: :new_session
   post "sign_in", to: "sessions#create"
 
