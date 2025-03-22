@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว"
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end

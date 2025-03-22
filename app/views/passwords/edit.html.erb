@@ -4,7 +4,7 @@
 
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center text-gray-800">
+      <h1 class="text-2xl font-semibold flex items-center">
         <span class="material-symbols-outlined mr-2">
           key
         </span>
@@ -28,7 +28,7 @@
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :password, "รหัสผ่านใหม่", class: "block text-base font-medium text-gray-700" %>
+          <%= form.label :password, "รหัสผ่านใหม่", class: "block text-base font-medium" %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -38,14 +38,14 @@
               placeholder: "กรุณากรอกรหัสผ่าน",
               data: { password_toggle_target: "password" } %>
         </div>
-        <p class="text-sm text-gray-500 mt-1">
-          รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-        </p>
+          <p class="text-sm text-gray-500 mt-1">
+            รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+          </p>
       </div>
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :password_confirmation, "ยืนยันรหัสผ่านใหม่", class: "block text-base font-medium text-gray-700" %>
+          <%= form.label :password_confirmation, "ยืนยันรหัสผ่านใหม่", class: "block text-base font-medium" %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -55,9 +55,9 @@
               placeholder: "กรุณากรอกรหัสผ่าน",
               data: { password_toggle_target: "password" } %>
         </div>
-         <p class="text-sm text-gray-500 mt-1">
-          รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-        </p>
+          <p class="text-sm text-gray-500 mt-1">
+            รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+          </p>
       </div>
 
       <div class="flex items-center space-x-2 mt-4">
@@ -68,7 +68,7 @@
                 password_toggle_target: "checkbox",
                 action: "change->password-toggle#togglePassword"
               } %>
-          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm text-gray-900" %>
+          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm" %>
         </div>
       </div>
 
