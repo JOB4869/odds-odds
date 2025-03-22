@@ -15,6 +15,11 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "ออกจากระบบ"
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "ออกจากระบบ" }
+    end
+  end
+
+  def sign_out_modal
   end
 end

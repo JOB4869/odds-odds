@@ -85,6 +85,7 @@
     <div class="header-container">
       <%= render partial: "header/logo" %>
     </div>
+    <%= turbo_frame_tag "modal" %>
     <main class="container mx-auto flex content">
       <%= render partial: "header/flash" if lookup_context.exists?("header/_flash") %>
         <%= yield %>

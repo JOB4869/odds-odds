@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   patch "password", to: "passwords#update"
 
   delete "sign_out", to: "sessions#destroy", as: :sign_out
+  get "sign_out", to: "sessions#sign_out_modal", as: :sign_out_modal
 
   get "password/reset", to: "password_resets#new"
   post "password/reset", to: "password_resets#create"
