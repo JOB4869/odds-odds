@@ -7,10 +7,10 @@ class BuyNowsController < ApplicationController
   end
 
   def create
-    @buy_now = Current.user.buy_nows.build(buy_now_params)
-
+    @buy_now = Current.user.buy_nows.build(buy_now_params.merge(status: :completed))
+    
     if @buy_now.save
-      redirect_to beers_path, notice: "อัพโหลดสลิปเรียบร้อย รอการตรวจสอบ"
+      redirect_to beers_path, notice: 'อัพโหลดสลิปเรียบร้อย รอการตรวจสอบ'
     else
       render :new, status: :unprocessable_entity
     end
@@ -53,6 +53,6 @@ class BuyNowsController < ApplicationController
   end
 
   def buy_now_params
-    params.require(:buy_now).permit(:amount, :proof_of_payment, :status)
+    params.require(:buy_now).permit(:amount, :proof_of_payment)
   end
 end

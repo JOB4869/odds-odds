@@ -9,6 +9,8 @@ class BuyNow < ApplicationRecord
   private
 
   def update_beer_balance
-    user.increment!(:beer_balance, amount) if completed?
+    if status_previously_changed? && completed?
+      user.increment!(:beer_balance, amount)
+    end
   end
 end
