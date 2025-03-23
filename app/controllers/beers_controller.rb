@@ -1,5 +1,5 @@
 class BeersController < ApplicationController
-  before_action :authenticate_user!, except: [ :index ]
+  before_action :authenticate_user!
 
   def index
     @user = Current.user
