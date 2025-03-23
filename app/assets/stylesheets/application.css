@@ -9,3 +9,8 @@
     transform: translateX(-50%);
     border-radius: 0.375rem;
 }
+
+.qr-code-odds {
+  width: 192px !important;
+  height: 192px !important;
+}

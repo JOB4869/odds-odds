@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  has_many :buy_nows
+  validates :beer_balance, numericality: { greater_than_or_equal_to: 0 }
+
+  def drink_beer
+    return false if beer_balance <= 0
+    decrement!(:beer_balance)
+  end
+
   has_secure_password
 
   validates :email, presence: { message: "กรุณากรอกอีเมล" },

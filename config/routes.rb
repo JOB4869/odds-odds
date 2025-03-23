@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :buy_nows do
+    member do
+      get :qr_code
+      patch :confirm_payment
+    end
+  end
+
+  resource :user, only: [] do
+    post :drink
+  end
+
   get "sign_up", to: "registrations#new", as: :sign_up
   post "sign_up", to: "registrations#create"
 
