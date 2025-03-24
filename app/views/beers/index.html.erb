@@ -1,12 +1,15 @@
 <div class="flex flex-col items-center w-full max-w-md mx-auto  bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
-    <div class="py-2 w-full">
+    <div class="py-2 w-full flex justify-between items-center">
       <h1 class="text-2xl font-semibold flex items-center text-black">
         <span class="mr-2">
           🍺
         </span>
         เบียร์ ODDS
       </h1>
+      <% if @user %>
+        <span class="text-gray-600"><%= @user.email %></span>
+      <% end %>
     </div>
       <%= render 'product_beer' %>
   </div>

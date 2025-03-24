@@ -8,17 +8,14 @@
 
       <div class="py-2 w-full">
         <p class="text-base text-center flex items-center justify-center space-x-2">
-          <span class="bg-red-400 rounded-xl inline-block text-2xl">🍺</span>
-          <span>วันนี้คุณกดเติมเบียร์ไปแล้ว แก้ว</span>
-          <span class="bg-green-400 rounded-xl inline-block text-2xl">🍺</span>
-
+          <span>เบียร์ 1 แก้ว</span>
         </p>
       </div>
 
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg text-white mt-6">
         <div class="w-full flex justify-between items-start px-8 py-2">
-          <%= link_to "#", class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700" do %>
-            <span class="text-white">ยืนยัน</span>
+          <%= button_to check_out_path, class: "flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700", data: { turbo: false } do %>
+            <div class="text-white">ยืนยัน</div>
           <% end %>
         </div>
       </div>

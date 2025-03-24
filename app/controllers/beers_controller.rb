@@ -9,8 +9,17 @@ class BeersController < ApplicationController
     end
   end
 
-  def check_out_beer_modal
+  def check_out_beer
+  end
+
+  def check_out
     @user = Current.user
-    render "check_out_beer_modal"
+    if @user.buy_nows.completed.sum(:amount) && @user.buy_nows.completed.sum(:amount) > 0
+      latest_buy_now = @user.buy_nows.completed.order(created_at: :desc).first
+      latest_buy_now.update(amount: latest_buy_now.amount - 1)
+      redirect_to beers_path, notice: "ดื่มเบียร์สำเร็จ! ", status: :see_other
+    else
+      redirect_to beers_path, alert: "คุณไม่มีเบียร์ในคลัง", status: :see_other
+    end
   end
 end

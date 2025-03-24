@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     post :drink
   end
 
-  get "check_out_beer", to: "beers#check_out_beer_modal", as: :check_out_beer_modal
+  get "check_out_beer", to: "beers#check_out_beer", as: :check_out_beer
+  post "check_out_beer", to: "beers#check_out", as: :check_out
 
   get "sign_up", to: "registrations#new", as: :sign_up
   post "sign_up", to: "registrations#create"
