@@ -8,4 +8,9 @@ class BeersController < ApplicationController
       @total_beers = @user.buy_nows.completed.sum(:amount)
     end
   end
+
+  def check_out_beer_modal
+    @user = Current.user
+    render "check_out_beer_modal"
+  end
 end

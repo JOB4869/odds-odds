@@ -1,8 +1,10 @@
 <% if @user %>
   <div class="bg-white rounded-lg p-4">
     <div class="flex justify-between items-center text-xl">
-      <div>เบียร์ทั้งหมด: <span class="font-semibold text-blue-600"><%= @total_beers %></span> แก้ว</div>
-      <div>กดเติม 🍺 เลยครับ</div>
+      <div>เบียร์ทั้งหมด: <span class="font-semibold text-blue-600 "><%= @total_beers %></span> แก้ว</div>
+      <%= link_to check_out_beer_modal_path, class: "py-2 flex items-center p-3 bg-red-50 rounded-md hover:bg-red-100 transition-colors", data: { turbo_frame: "modal" } do %>
+        <span>กดเติม 🍺 เลยครับ</span>
+      <% end %>
     </div>
   </div>
 <% end %>
@@ -50,4 +52,4 @@
       <% end %>
     </div>
   </div>
-
+<%= turbo_frame_tag "modal" %>
