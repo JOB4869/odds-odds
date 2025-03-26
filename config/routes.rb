@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   resources :buy_nows do
     member do
       get :qr_code
