@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     post :drink
   end
 
+  resources :accounts, controller: "accounts"
+
   get "check_out_beer", to: "beers#check_out_beer", as: :check_out_beer
   post "check_out_beer", to: "beers#check_out", as: :check_out
 

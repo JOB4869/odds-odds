@@ -1,0 +1,112 @@
+<div class="py-2 flex justify-end">
+    <span class="text-sm text-blue-600">โปรดระบุ *</span>
+</div>
+
+<div class="py-2 w-full">
+    <p class="text-black text-base"> 
+        หากคุณต้องการบันทึกที่อยู่นี้ใน "ที่อยู่ของสมาชิก" กรุณากรอกข้อมูลทั้งหมดให้ครบถ้วน รวมถึงหมายเลขโทรศัพท์
+    </p>
+</div>
+
+<%= form_with(model: @user, 
+              url: @user.persisted? ? account_path(@user) : accounts_path, 
+              method: @user.persisted? ? :patch : :post, 
+              local: true, 
+              data: { turbo: false }, 
+              html: { id: "account-form" }) do |f| %>
+  <div class="space-y-6">
+    <div>
+      <div class="flex items-center">
+        <%= f.label :first_name, "ชื่อ", class: "block text-base font-medium required" %>
+        &nbsp;
+        <span class="text-base text-blue-600 ml-1">*</span>
+      </div>
+      <div class="relative">
+        <%= f.text_field :first_name,
+            class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+            placeholder: "กรุณากรอก ชื่อ เป็นตัวอักษร" %>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <div class="flex items-center">
+        <%= f.label :last_name, "นามสกุล", class: "block text-base font-medium required" %>
+        &nbsp;
+        <span class="text-base text-blue-600 ml-1">*</span>
+      </div>
+      <div class="relative">
+        <%= f.text_field :last_name,
+            class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+            placeholder: "กรุณากรอก นามสกุล เป็นตัวอักษร" %>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <div class="flex items-center">
+        <%= f.label :address, "ที่อยู่", class: "block text-base font-medium required" %>
+        &nbsp;
+        <span class="text-base text-blue-600 ml-1">*</span>
+      </div>
+      <div class="relative">
+        <%= f.text_area :address,
+            class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+            rows: 3,
+            placeholder: "บ้านเลขที่ หมู่บ้าน/อาคาร" %>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <div class="flex items-center">
+        <%= f.label :phone, "โทรศัพท์", class: "block text-base font-medium required" %>
+        &nbsp;
+        <span class="text-base text-blue-600 ml-1">*</span>
+      </div>
+      <div class="relative">
+        <%= f.text_field :phone,
+            class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+            placeholder: "กรุณากรอกหมายเลขโทรศัพท์" %>
+        <p class="text-sm text-gray-500 mt-1">
+          โปรดอย่าใส่รหัสประเทศ(+66) หากเบอร์โทรศัพท์ครบ 10 หลักแล้ว ตัวอย่าง 0811223344
+        </p>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <div class="flex items-center">
+        <%= f.label :prompt_pay, "พร้อมเพย์", class: "block text-base font-medium required" %>
+        &nbsp;
+        <span class="text-base text-blue-600 ml-1">*</span>
+      </div>
+      <div class="relative">
+        <%= f.text_field :prompt_pay,
+            class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+            placeholder: "หมายเลขโทรศัพท์ 10 หลัก หรือ เลขบัตรประชาชน 13 หลัก" %>
+        <p class="text-sm text-gray-500 mt-1">
+          เบอร์โทรศัพท์ครบ 10 หลักแล้ว ตัวอย่าง 0811223344
+          หมายเลขบัตรประชาชน 13 หลักแล้ว ตัวอย่าง 1122334455667
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "อัพเดทข้อมูล", class: "w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    </div>
+  </div>
+<% end %>
+
+<% if @user.persisted? %>
+  <div class="mt-4">
+    <%= link_to "กลับ", accounts_path(@user),
+        class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+  </div>
+<% end %>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
