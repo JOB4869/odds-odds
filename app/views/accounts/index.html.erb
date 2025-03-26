@@ -15,7 +15,7 @@
       <div class="py-8 text-center">
         <p class="text-gray-500 mt-8 mb-4">ยังไม่มีข้อมูล</p>
         <%= link_to "เพิ่มข้อมูล", edit_account_path(@user), class: "w-full flex justify-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 mt-8 mb-4" %>
-        <%= link_to "กลับสู่หน้าบัญชีผู้ใช้", root_path, class: "block w-full text-center mt-4 text-gray-600 py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200" %>
+        <%= link_to "กลับสู่หน้าบัญชีผู้ใช้", users_path, class: "block w-full text-center mt-4 text-gray-600 py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200" %>
       </div>
     <% else %>
       <div class="py-4 space-y-4">
@@ -46,7 +46,7 @@
 
         <div class="mt-6 space-y-4">
           <%= link_to "แก้ไขข้อมูล", edit_account_path(@user), class: "w-full block text-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700" %>
-          <%= link_to "กลับสู่หน้าบัญชีผู้ใช้", root_path, class: "block w-full text-center text-gray-600 py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200" %>
+          <%= link_to "กลับสู่หน้าบัญชีผู้ใช้", users_path, class: "block w-full text-center text-gray-600 py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200" %>
         </div>
       </div>
     <% end %>
