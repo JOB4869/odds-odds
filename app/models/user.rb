@@ -26,31 +26,31 @@ class User < ApplicationRecord
               message: "รหัสผ่านต้องประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ"
             },
             if: -> { password.present? },
-            on: :create
+            on: [ :create, :password_reset ]
 
   validates :first_name,
             presence: { message: "กรุณากรอกชื่อ" },
             format: { with: /\A[ก-ฮ\u0E30-\u0E3A\u0E40-\u0E4E a-zA-Z]+\z/, message: "กรุณากรอกเฉพาะตัวอักษรไทยหรืออังกฤษ" },
-            on: :update
+            on: :update_profile
 
   validates :last_name,
             presence: { message: "กรุณากรอกนามสกุล" },
             format: { with: /\A[ก-ฮ\u0E30-\u0E3A\u0E40-\u0E4E a-zA-Z]+\z/, message: "กรุณากรอกเฉพาะตัวอักษรไทยหรืออังกฤษ" },
-            on: :update
+            on: :update_profile
 
-  validates :address, presence: { message: "กรุณากรอกที่อยู่" }, on: :update
+  validates :address, presence: { message: "กรุณากรอกที่อยู่" }, on: :update_profile
 
   validates :phone,
             presence: { message: "กรุณาเบอร์โทรศัพท์" },
             length: { minimum: 10, maximum: 10 },
             format: { with: /\A\d{10}\z/, message: "เบอร์โทรศัพท์ 10 หลัก" },
-            on: :update
+            on: :update_profile
 
   validates :prompt_pay,
             presence: { message: "กรุณากรอกพร้อมเพย์" },
             length: { minimum: 10, maximum: 13 },
             format: { with: /\A\d{10}|\d{13}\z/, message: "หมายเลขโทรศัพท์ 10 หลัก, หมายเลขบัตรประชาชน 13 หลัก" },
-            on: :update
+            on: :update_profile
 
   before_create :set_default_beer_balance
 
