@@ -2,20 +2,19 @@
 
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
-    <div class="w-full">
    
       <h1 class="text-2xl font-semibold flex items-center justify-center w-full mb-8"><%= @product.name %></h1>
 
       <div class="grid grid-cols-1 gap-4 mb-8">
-        <%= image_tag @product.images.first, class: "w-100 h-auto rounded-lg object-cover" %>
-        <div class="grid grid-cols-5 gap-4 mb-8">
+        <%= image_tag @product.images.first, class: "rounded-lg object-cover" %>
+        <div class="grid grid-cols-3 gap-4 mb-8">
         <% @product.images[1..].each do |image| %>
-          <%= image_tag image, class: "w-20 h-auto rounded-lg object-cover" %>
+          <%= image_tag image, class: "rounded-lg object-cover" %>
         <% end %>
       </div>
 
-      <div class="flex justify-center items-center mb-8 bg-gray-100 p-4 rounded-lg">
-        <%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท
+      <div class="flex justify-center items-center mb-8">
+        <span class="bg-gray-100 p-4 rounded-lg text-lg font-semibold"><%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท </span>
       </div>
 
       <div class="flex justify-center items-center mb-8">
@@ -24,6 +23,6 @@
 
       
       
-    </div>
+  
   </div>
 </div>
