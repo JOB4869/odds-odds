@@ -5,13 +5,7 @@
     <div class="w-full">
       <h1 class="text-2xl font-semibold flex items-center">แก้ไขสินค้า</h1>
 
-      <%= form_with(model: @product, class: "contents") do |form| %>
-        <%= render "form", product: @product %>
-        
-        <div class="inline">
-          <%= form.submit "ยืนยันการแก้ไขสินค้า", class: "w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
-        </div>
-      <% end %>
+      <%= render "form", product: @product %>
 
       <div class="mt-4">
         <%= link_to products_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>

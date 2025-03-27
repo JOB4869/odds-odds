@@ -8,13 +8,7 @@
     <div class="py-4">
       <%= render "form", product: @product, button_text: "สร้างสินค้า" %>        
     </div>
-    <%= form_with(model: @product, class: "contents") do |form| %>
-      <%= render "form", product: @product %>
-        <div class="inline">
-          <%= form.submit "ยืนยันการสร้างสินค้า", class: "w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
-        </div>
-      <% end %>
-    <div class="mt-4">
+    <div>
       <%= link_to products_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
         กลับหน้าสินค้าตัวเอง
       <% end %>

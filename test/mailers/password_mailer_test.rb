@@ -8,6 +8,6 @@ class PasswordMailerTest < ActionMailer::TestCase
     mail = PasswordMailer.with(user: user).reset
     assert_equal "Reset", mail.subject
     assert_equal [ user.email ], mail.to
-    assert_equal [ "from@example.com" ], mail.from
+    assert_equal [ "kittitatjob@gmail.com" ], mail.from
   end
 end
