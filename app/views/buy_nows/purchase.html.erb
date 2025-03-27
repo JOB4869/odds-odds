@@ -1,0 +1,76 @@
+<div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6" data-controller="purchase">
+  <div class="w-full">
+    <h1 class="text-2xl font-semibold mb-6">ยืนยันการสั่งซื้อ</h1>
+
+    <%= form_with model: @buy_now, url: confirm_purchase_product_buy_nows_path(@product), local: true, class: "space-y-6", data: { purchase_target: "form", action: "submit->purchase#validateForm" } do |f| %>
+      <%= f.hidden_field :amount, value: 1 %>
+      <div>
+        <label class="block text-base font-medium px-2 py-2">เลือกที่รับสินค้า</label>
+        <div class="mt-1">
+          <div class="flex items-center space-x-4 mb-2">
+            <input type="radio" name="buy_now[address_method]" value="current_address" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300" data-action="change->purchase#toggleAddress">
+            <label class="text-base text-gray-700"><%= @user.address %></label>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <input type="radio" name="buy_now[address_method]" value="tipco_address" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300" data-action="change->purchase#toggleAddress">
+            <label class="text-base text-gray-700">รับที่ TIPCO</label>
+          </div>
+        </div>
+      </div>
+
+      <div data-purchase-target="currentAddress" style="display: none;">
+        <div>
+          <label class="block text-base font-medium px-2 py-2">พร้อมเพย์</label>
+          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @user.prompt_pay %></label>
+        </div>
+
+        <div>
+          <label class="block text-base font-medium px-2 py-2">หลักฐานการชำระเงิน</label>
+          <div class="mt-1">
+            <%= f.file_field :proof_of_payment, class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+                                accept: "image/*" %> 
+          </div>
+        </div>
+      </div>
+
+      <div data-purchase-target="paymentMethod" style="display: none;">
+        <label class="block text-base font-medium px-2 py-2">เลือกวิธีการชำระเงิน</label>
+        <div class="mt-1">
+          <div class="flex items-center space-x-4 mb-2">
+            <input type="radio" name="buy_now[payment_method]" value="promptpay" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300" data-action="change->purchase#togglePayment">
+            <label class="text-base text-gray-700">พร้อมเพย์</label>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <input type="radio" name="buy_now[payment_method]" value="cash_on_delivery" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300" data-action="change->purchase#togglePayment">
+            <label class="text-base text-gray-700">เก็บเงินปลายทางที่ TIPCO</label>
+          </div>
+        </div>
+      </div>
+
+      <div data-purchase-target="promptpay" style="display: none;">
+        <div>
+          <label class="block text-base font-medium px-2 py-2">พร้อมเพย์</label>
+          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @user.prompt_pay %></label>
+        </div>
+
+        <div>
+          <label class="block text-base font-medium px-2 py-2">หลักฐานการชำระเงิน</label>
+          <div class="mt-1">
+            <%= f.file_field :proof_of_payment, class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
+                                accept: "image/*" %> 
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <%= f.submit "ยืนยันการสั่งซื้อ", class: "w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+      </div>
+
+      <div class="mt-4">
+        <%= link_to "หน้าหลัก ODDS ODDS SHOP", root_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+    <% end %>
+  </div>
+</div> 
