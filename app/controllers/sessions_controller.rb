@@ -4,11 +4,14 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    if user&.authenticate(params[:password])
+    if user.nil?
+      flash.now[:alert] = "ไม่พบอีเมลนี้ในระบบ"
+      render :new, status: :unprocessable_entity
+    elsif user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to stored_location_for(:user) || users_path, notice: "เข้าสู่ระบบสำเร็จ"
     else
-      flash.now[:alert] = "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
+      flash.now[:alert] = "รหัสผ่านไม่ถูกต้อง"
       render :new, status: :unprocessable_entity
     end
   end
