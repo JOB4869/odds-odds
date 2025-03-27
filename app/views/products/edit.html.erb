@@ -2,13 +2,22 @@
 
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
-    <div class="md:w-2/3 w-full">
-      <h1 class="font-bold text-4xl">Editing product</h1>
+    <div class="w-full">
+      <h1 class="text-2xl font-semibold flex items-center">แก้ไขสินค้า</h1>
 
-      <%= render "form", product: @product %>
+      <%= form_with(model: @product, class: "contents") do |form| %>
+        <%= render "form", product: @product %>
+        
+        <div class="inline">
+          <%= form.submit "ยืนยันการแก้ไขสินค้า", class: "w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+        </div>
+      <% end %>
 
-      <%= link_to "Show this product", @product, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-      <%= link_to "Back to products", products_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+      <div class="mt-4">
+        <%= link_to products_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+          กลับหน้าสินค้าตัวเอง
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

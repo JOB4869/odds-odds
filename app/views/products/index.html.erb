@@ -12,18 +12,23 @@
         <%= link_to "เพิ่มสินค้าใหม่", new_product_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
       </div>
 
-      <div id="products" class="min-w-full divide-y divide-gray-200 space-y-5">
+      <div id="products" class="mt-8">
         <% if @products.any? %>
-          <% @products.each do |product| %>
-            <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-              <%= render product %>
-              <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-                <%= link_to "แสดงสินค้า", product, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-                <%= link_to "แก้ไขสินค้า", edit_product_path(product), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-                <div class="sm:inline-block">
-                  <%= button_to "ลบสินค้า", product, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+          <% @products.each_slice(2) do |product_pair| %>
+            <div class="flex justify-between gap-8 mb-8">
+              <% product_pair.each do |product| %>
+                <div class="bg-white rounded-lg shadow-md">
+                  <%= render product %>
+                  <div class="p-4 flex justify-center space-x-2">
+                    <%= link_to "แก้ไข", edit_product_path(product), class: "px-3 py-2 bg-gray-100 hover:bg-gray-50 rounded-md text-sm font-medium" %>
+                    <%= button_to "ลบ", product, method: :delete, class: "px-3 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md text-sm font-medium", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่?" } } %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
+              <% if product_pair.length == 1 %>
+                <div class="bg-white rounded-lg shadow-md invisible">
+                </div>
+              <% end %>
             </div>
           <% end %>
         <% else %>

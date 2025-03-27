@@ -18,7 +18,7 @@
 
   <div class="my-5">
     <%= form.label :description,"คำอธิบายสินค้า", class: "block text-base font-medium" %>
-    <%= form.text_area :description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full bg-gray-50", {"border-gray-400 focus:outline-blue-600": product.errors[:description].none?, "border-red-400 focus:outline-red-600": product.errors[:description].any?}] %>
+    <%= form.text_area :description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full bg-gray-50", {"border-gray-400 focus:outline-blue-600": product.errors[:description].none?, "border-red-400 focus:outline-red-600": product.errors[:description].any?}], rows: 6 %>
   </div>
 
   <div class="my-5">
@@ -29,9 +29,5 @@
   <div class="my-5">
     <%= form.label :price,"ราคาสินค้า", class: "block text-base font-medium" %>
     <%= form.text_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full bg-gray-50", {"border-gray-400 focus:outline-blue-600": product.errors[:price].none?, "border-red-400 focus:outline-red-600": product.errors[:price].any?}], placeholder: "กรอกเป็นตัวเลข บาท." %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
   </div>
 <% end %>
