@@ -3,7 +3,7 @@
     <div class="w-46 h-80 flex flex-col justify-between">
       <div class="flex-1 flex items-center justify-center">
         <% if product.images.attached? %>
-          <%= image_tag product.images.first, class: "object-cover rounded-lg" %>
+          <%= image_tag product.images.first, class: "w-full h-full object-cover rounded-lg" %>
         <% else %>
           <div class="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
             <span class="text-gray-400">ไม่มีรูปภาพ</span>

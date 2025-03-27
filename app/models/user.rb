@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :buy_nows
+  has_many :products
   has_one_attached :qr_code
 
   validates :beer_balance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true

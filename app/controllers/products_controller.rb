@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = Current.user.products.order(created_at: :desc)
   end
 
   # GET /products/1 or /products/1.json
@@ -12,16 +13,19 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = Current.user.products.build
   end
 
   # GET /products/1/edit
   def edit
+    unless @product.user_id == Current.user.id
+      redirect_to products_path, alert: "คุณไม่มีสิทธิ์แก้ไขสินค้านี้"
+    end
   end
 
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
+    @product = Current.user.products.build(product_params)
 
     respond_to do |format|
       if @product.save
@@ -36,6 +40,11 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    unless @product.user_id == Current.user.id
+      redirect_to products_path, alert: "คุณไม่มีสิทธิ์แก้ไขสินค้านี้"
+      return
+    end
+
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to products_path, notice: "อัปเดตสินค้าเรียบร้อยแล้ว" }
@@ -49,10 +58,15 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+    unless @product.user_id == Current.user.id
+      redirect_to products_path, alert: "คุณไม่มีสิทธิ์ลบสินค้านี้"
+      return
+    end
+
     @product.destroy!
 
     respond_to do |format|
-      format.html { redirect_to products_path, status: :see_other, notice: "Product was successfully destroyed." }
+      format.html { redirect_to products_path, status: :see_other, notice: "ลบสินค้าเรียบร้อยแล้ว" }
       format.json { head :no_content }
     end
   end
@@ -60,11 +74,11 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params.expect(:id))
+      @product = Product.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :name, :description, :price, images: [] ])
+      params.require(:product).permit(:name, :description, :price, images: [])
     end
 end
