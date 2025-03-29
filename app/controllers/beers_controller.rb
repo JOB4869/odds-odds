@@ -6,7 +6,7 @@ class BeersController < ApplicationController
     @product = Product.first # หรือใช้ product ที่ต้องการ
     if @user
       @buy_nows = @user.buy_nows.order(created_at: :desc).limit(5)
-      @total_beers = @user.buy_nows.completed.sum(:amount)
+      @total_beers = @user.buy_nows.completed.where(product_id: nil).sum(:amount)
     end
   end
 
@@ -15,8 +15,8 @@ class BeersController < ApplicationController
 
   def check_out
     @user = Current.user
-    if @user.buy_nows.completed.sum(:amount) && @user.buy_nows.completed.sum(:amount) > 0
-      latest_buy_now = @user.buy_nows.completed.order(created_at: :desc).first
+    if @user.buy_nows.completed.where(product_id: nil).sum(:amount) > 0
+      latest_buy_now = @user.buy_nows.completed.where(product_id: nil).order(created_at: :desc).first
       latest_buy_now.update(amount: latest_buy_now.amount - 1)
       redirect_to beers_path, notice: "ดื่มเบียร์สำเร็จ! ", status: :see_other
     else

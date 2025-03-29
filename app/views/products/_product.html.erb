@@ -9,6 +9,9 @@
           <% end %>
         <% else %>
           <div class="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
+            <% if product.sold? %>
+            <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
+          <% end %>
             <span class="text-gray-400">ไม่มีรูปภาพ</span>
           </div>
         <% end %>

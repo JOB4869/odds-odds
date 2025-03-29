@@ -47,7 +47,7 @@
                     เก็บเงินปลายทาง
                   <% else %>
                     <% if buy_now.proof_of_payment.attached? %>
-                      <%= image_tag buy_now.proof_of_payment, class: "w-full max-w-md rounded-lg shadow-md" %>
+                      <%= image_tag buy_now.proof_of_payment, class: "w-40 h-auto max-w-md rounded-lg shadow-md" %>
                     <% else %>
                       <p class="text-red-500 text-sm">ยังไม่มีสลิปการชำระเงิน</p>
                     <% end %>

@@ -2,7 +2,7 @@
 
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
-    <div class="text-2xl font-semibold flex items-center justify-center w-full mb-8">
+    <div class="text-2xl font-semibold flex items-center justify-center w-full mb-6">
       <% if @product.sold? %>
         <span class="text-gray-400"><%= @product.name %></span> 
       <% else %> 
@@ -11,12 +11,20 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 mb-8">
-      <%= image_tag @product.images.first, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
-      <div class="grid grid-cols-3 gap-4 mb-8">
-        <% @product.images[1..].each do |image| %>
-          <%= image_tag image, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
+      <% if @product.images.attached? %>
+        <%= image_tag @product.images.first, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
+        <% if @product.images.length > 1 %>
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <% @product.images[1..].each do |image| %>
+              <%= image_tag image, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
+            <% end %>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <div class="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
+          <span class="text-gray-400">ไม่มีรูปภาพ</span>
+        </div>
+      <% end %>
       <% if @product.sold? %>
         <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
       <% end %>

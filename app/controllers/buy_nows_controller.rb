@@ -3,6 +3,10 @@ class BuyNowsController < ApplicationController
   before_action :set_buy_now, only: [ :show, :update, :confirm_payment ]
   before_action :set_product, only: [ :purchase, :show, :confirm_purchase ]
 
+  def index
+    @buy_nows = Current.user.buy_nows.includes(:product).order(created_at: :desc)
+  end
+
   def new
     @buy_now = Current.user.buy_nows.build(
       amount: params[:amount]
