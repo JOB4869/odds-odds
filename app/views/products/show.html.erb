@@ -2,21 +2,40 @@
 
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
-    <h1 class="text-2xl font-semibold flex items-center justify-center w-full mb-8"><%= @product.name %></h1>
+    <div class="text-2xl font-semibold flex items-center justify-center w-full mb-8">
+      <% if @product.sold? %>
+        <span class="text-gray-400"><%= @product.name %></span> 
+      <% else %> 
+        <%= @product.name %> 
+      <% end %>
+    </div>
+
     <div class="grid grid-cols-1 gap-4 mb-8">
       <%= image_tag @product.images.first, class: "rounded-lg object-cover" %>
       <div class="grid grid-cols-3 gap-4 mb-8">
-      <% @product.images[1..].each do |image| %>
-        <%= image_tag image, class: "rounded-lg object-cover" %>
+        <% @product.images[1..].each do |image| %>
+          <%= image_tag image, class: "rounded-lg object-cover" %>
+        <% end %>
+      </div>
+      <% if @product.sold? %>
+        <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
       <% end %>
     </div>
 
     <div class="flex justify-center items-center mb-8">
-      <span class="bg-gray-100 p-4 rounded-lg text-lg font-semibold"><%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท </span>
+      <% if @product.sold? %>
+        <span class="text-gray-400"><%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท</span>
+      <% else %>
+        <span class="bg-gray-100 p-4 rounded-lg text-lg font-semibold"><%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท </span>
+      <% end %>
     </div>
 
     <div class="flex justify-center items-center mb-8">
-      <%= @product.description %>
+      <% if @product.sold? %>
+        <span class="text-gray-400"><%= @product.description %></span>
+      <% else %>
+        <%= @product.description %>
+      <% end %>
     </div>
 
     <% content_for :button_product do %>

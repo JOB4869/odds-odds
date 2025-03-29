@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :validate_user_profile
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
@@ -80,5 +81,12 @@ class ProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def product_params
       params.require(:product).permit(:name, :description, :price, images: [])
+    end
+
+    def validate_user_profile
+      user = Current.user
+      if user.first_name.blank? || user.last_name.blank? || user.address.blank? || user.phone.blank? || user.prompt_pay.blank?
+        redirect_to accounts_path, alert: "กรุณากรอกข้อมูลบัญชีผู้ใช้ให้ครบถ้วนก่อนเข้าถึงหน้าสินค้าของฉัน"
+      end
     end
 end
