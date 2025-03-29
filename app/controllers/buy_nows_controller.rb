@@ -4,15 +4,23 @@ class BuyNowsController < ApplicationController
   before_action :set_product, only: [ :purchase, :show, :confirm_purchase ]
 
   def new
-    @buy_now = Current.user.buy_nows.build(amount: params[:amount])
+    @buy_now = Current.user.buy_nows.build(
+      amount: params[:amount]
+    )
   end
 
   def create
-    @buy_now = Current.user.buy_nows.build(buy_now_params.merge(status: :completed))
+    @buy_now = Current.user.buy_nows.build(buy_now_params.merge(
+      status: :completed
+    ))
 
     if @buy_now.save
+      if params[:buy_now][:proof_of_payment].present?
+        @buy_now.proof_of_payment.attach(params[:buy_now][:proof_of_payment])
+      end
       redirect_to beers_path, notice: "อัปโหลดสลิปเรียบร้อย"
     else
+      flash.now[:alert] = "เกิดข้อผิดพลาด: #{@buy_now.errors.full_messages.join(', ')}"
       render :new, status: :unprocessable_entity
     end
   end
@@ -83,6 +91,6 @@ class BuyNowsController < ApplicationController
   end
 
   def buy_now_params
-    params.require(:buy_now).permit(:amount, :payment_method, :address_method, :proof_of_payment)
+    params.require(:buy_now).permit(:amount, :payment_method, :address_method, :proof_of_payment, :status, :product_id)
   end
 end
