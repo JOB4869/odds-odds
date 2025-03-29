@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :products do
+    member do
+      get :customers
+    end
     resources :buy_nows, only: [ :show ] do
       collection do
         get :purchase

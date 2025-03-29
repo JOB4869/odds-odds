@@ -17,16 +17,6 @@
         </div>
       </div>
 
-      <div>
-        <h2 class="text-lg font-medium text-gray-900">สถานะการสั่งซื้อ</h2>
-        <div class="mt-2">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
-            <%= @buy_now.status == 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
-            <%= @buy_now.status == 'completed' ? 'ชำระเงินแล้ว' : 'รอการตรวจสอบ' %>
-          </span>
-        </div>
-      </div>
-
       <% if @buy_now.proof_of_payment.attached? %>
         <div>
           <h2 class="text-lg font-medium text-gray-900">หลักฐานการชำระเงิน</h2>

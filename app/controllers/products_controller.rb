@@ -24,6 +24,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  # GET /products/:id/customers
+  def customers
+    @product = Current.user.products.find(params[:id])
+    @buy_nows = @product.buy_nows.includes(:user).order(created_at: :desc)
+  end
+
   # POST /products or /products.json
   def create
     @product = Current.user.products.build(product_params)
