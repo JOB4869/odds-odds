@@ -12,5 +12,8 @@
       <% end %>
     </div>
       <%= render 'product_beer' %>
+      <% content_for :back_home do %>
+        <%= render "bottom/back_home" %>
+      <% end %>
   </div>
 </div>
