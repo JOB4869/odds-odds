@@ -10,6 +10,18 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :carts, only: [ :show ] do
+    collection do
+      post :add
+      delete :clear
+      get :current
+      delete :remove_item
+      get :purchase_all
+      post :confirm_purchase_all
+    end
+  end
+
   resources :buy_nows do
     member do
       get :qr_code

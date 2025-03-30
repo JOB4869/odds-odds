@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_29_232624) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_082342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_232624) do
     t.index ["user_id"], name: "index_buy_nows_on_user_id"
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "items"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
@@ -86,5 +95,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_232624) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "buy_nows", "products"
   add_foreign_key "buy_nows", "users"
+  add_foreign_key "carts", "users"
   add_foreign_key "products", "users"
 end

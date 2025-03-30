@@ -9,6 +9,7 @@ class BuyNow < ApplicationRecord
 
   before_create :set_original_amount
   after_update :update_beer_balance, if: :completed?
+  after_create :mark_as_completed
 
   private
 
@@ -20,5 +21,9 @@ class BuyNow < ApplicationRecord
     if status_previously_changed? && status_was == "pending" && completed? && product_id.nil?
       user.increment!(:beer_balance, amount)
     end
+  end
+
+  def mark_as_completed
+    update(status: :completed)
   end
 end

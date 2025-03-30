@@ -30,8 +30,11 @@
         <span class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full inline-block text-xl text-white">ซื้อเลย</span>
       <% end %>
 
-      <%= link_to "#", class: "px-4 py-2 flex justify-center" do %>
-        <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm">เพิ่มลงในตะกร้า</span>
+      <%= form_tag add_carts_path, method: :post, class: "px-4 py-2 flex justify-center" do %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <%= button_tag type: 'submit', class: "bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm" do %>
+          เพิ่มลงในตะกร้า
+        <% end %>
       <% end %>
     <% end %>
 

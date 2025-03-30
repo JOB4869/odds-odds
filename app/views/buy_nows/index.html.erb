@@ -15,11 +15,10 @@
               </div>
               <% if buy_now.product&.images&.first %>
                 <div class="w-40 h-40 flex-shrink-0">
-                  <%= image_tag buy_now.product.images.first, class: "w-full h-full object-cover rounded-lg" %>
+                  <%= image_tag buy_now.product.images.first, class: "w-full h-full object-cover rounded-lg shadow-md" %>
                 </div>
               <% end %>
-            <% original_amount = buy_now.created_at == buy_now.updated_at ? buy_now.amount : buy_now.amount + (buy_now.created_at.to_date == Date.today ? 1 : 0) %>
-            <p class="mt-1 pl-4 text-base">จำนวน: <%= buy_now.original_amount %></p>
+            <p class="mt-1 pl-4 text-base">จำนวน: 1</p>
             <% if buy_now.product %>
               <p class="mt-1 pl-4 text-base">ราคา: <%= number_to_currency(buy_now.product.price, unit: "", precision: 0) %> บาท</p>
             <% end %>

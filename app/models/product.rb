@@ -4,7 +4,7 @@ class Product < ApplicationRecord
   has_many :buy_nows
 
   def sold?
-    buy_nows.where(status: :completed).exists?
+    self.sold == true || buy_nows.where(status: :completed).exists?
   end
 
   def remaining_amount

@@ -3,16 +3,34 @@
     <h1 class="text-2xl font-semibold mb-6">ยืนยันการสั่งซื้อ</h1>
 
     <div class="space-y-4 mb-6">
-      <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-        <div>
-          <h3 class="font-medium"><%= @product.name %></h3>
-          <p class="text-gray-600">ราคา: <%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท</p>
+      <% @cart_items.each do |item| %>
+        <% product = Product.find_by(id: item["product_id"]) %>
+        <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+          <div>
+            <h3 class="font-medium"><%= item["name"] %></h3>
+            <p class="text-gray-600">ราคา: <%= item["price"] %> บาท</p>
+            <% if product&.sold? %>
+              <p class="text-red-600 text-sm mt-1">สินค้าถูกขายไปแล้ว</p>
+            <% end %>
+          </div>
         </div>
+      <% end %>
+    </div>
+
+    <div class="p-4 bg-gray-50 rounded-lg mb-6">
+      <div class="flex justify-between items-center">
+        <span class="font-medium">ราคารวมทั้งหมด:</span>
+        <span class="text-xl font-bold"><%= @total_price %> บาท</span>
       </div>
     </div>
 
-    <%= form_with model: @buy_now, url: confirm_purchase_product_buy_nows_path(@product), local: true, class: "space-y-6", data: { purchase_target: "form", action: "submit->purchase#validateForm" } do |f| %>
-      <%= f.hidden_field :amount, value: 1 %>
+    <%= form_with url: confirm_purchase_all_carts_path, method: :post, class: "space-y-6", data: { purchase_target: "form", action: "submit->purchase#validateForm" } do |f| %>
+      <% @cart_items.each do |item| %>
+        <% product = Product.find_by(id: item["product_id"]) %>
+        <% unless product&.sold? %>
+          <%= f.hidden_field "cart_items[]", value: item["product_id"] %>
+        <% end %>
+      <% end %>
       <div>
         <label class="block text-base font-medium px-2 py-2">เลือกที่รับสินค้า</label>
         <div class="mt-1">
@@ -35,14 +53,13 @@
       <div data-purchase-target="currentAddress" style="display: none;">
         <div>
           <label class="block text-base font-medium px-2 py-2">พร้อมเพย์</label>
-          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @product.user.prompt_pay %></label>
+          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @user.prompt_pay %></label>
         </div>
 
         <div>
           <label class="block text-base font-medium px-2 py-2">หลักฐานการชำระเงิน</label>
           <div class="mt-1">
-            <%= f.file_field :proof_of_payment, class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
-                                accept: "image/*" %> 
+            <%= f.file_field "buy_now[proof_of_payment]", class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500", accept: "image/*" %>
           </div>
         </div>
       </div>
@@ -65,14 +82,13 @@
       <div data-purchase-target="promptpay" style="display: none;">
         <div>
           <label class="block text-base font-medium px-2 py-2">พร้อมเพย์</label>
-          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @product.user.prompt_pay %></label>
+          <label class="text-base px-2 py-2 bg-gray-50 rounded-md"><%= @user.prompt_pay %></label>
         </div>
 
         <div>
           <label class="block text-base font-medium px-2 py-2">หลักฐานการชำระเงิน</label>
           <div class="mt-1">
-            <%= f.file_field :proof_of_payment, class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
-                                accept: "image/*" %> 
+            <%= f.file_field "buy_now[proof_of_payment]", class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500", accept: "image/*" %>
           </div>
         </div>
       </div>
@@ -82,7 +98,7 @@
       </div>
 
       <div class="mt-4">
-        <%= link_to "หน้าหลัก ODDS ODDS SHOP", root_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+        <%= link_to "กลับไปตะกร้าสินค้า", current_carts_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
       </div>
     <% end %>
   </div>
