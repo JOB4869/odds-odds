@@ -2,10 +2,15 @@
   <div class="w-full">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-semibold">ตะกร้าสินค้า</h1>
-      <%= button_to clear_carts_path, method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะล้างตะกร้า?" } } do %>
+    
+
+    <% if @cart.items.any? %>
+        <%= button_to clear_carts_path, method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะล้างตะกร้า?" } } do %>
           ล้างตะกร้า
         <% end %>
+    <% end %>
     </div>
+    
 
     <% if @cart.items.any? %>
       <div class="space-y-4">

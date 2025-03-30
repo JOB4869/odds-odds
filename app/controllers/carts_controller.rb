@@ -57,6 +57,21 @@ class CartsController < ApplicationController
       return
     end
 
+    if address_method.blank?
+      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกที่รับสินค้า"
+      return
+    end
+
+    if payment_method.blank?
+      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกวิธีการชำระเงิน"
+      return
+    end
+
+    if payment_method == "promptpay" && params[:buy_now][:proof_of_payment].blank?
+      redirect_to purchase_all_carts_path, alert: "กรุณาอัพโหลดหลักฐานการชำระเงิน"
+      return
+    end
+
     products = Product.where(id: product_ids)
     Rails.logger.info "Found products: #{products.map(&:id)}"
 
@@ -75,7 +90,8 @@ class CartsController < ApplicationController
         buy_now = product.buy_nows.new(
           user: Current.user,
           address_method: address_method,
-          payment_method: payment_method
+          payment_method: payment_method,
+          amount: 1
         )
 
         if params[:buy_now][:proof_of_payment].present?

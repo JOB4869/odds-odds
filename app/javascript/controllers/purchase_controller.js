@@ -16,6 +16,11 @@ export default class extends Controller {
       this.currentAddressTarget.style.display = "block"
       this.paymentMethodTarget.style.display = "none"
       this.promptpayTarget.style.display = "none"
+      // ตั้งค่า payment_method เป็น promptpay โดยอัตโนมัติ
+      const promptpayRadio = this.formTarget.querySelector('input[name="buy_now[payment_method]"][value="promptpay"]')
+      if (promptpayRadio) {
+        promptpayRadio.checked = true
+      }
     } else {
       this.currentAddressTarget.style.display = "none"
       this.paymentMethodTarget.style.display = "block"
@@ -40,18 +45,25 @@ export default class extends Controller {
       return
     }
 
-    const paymentMethod = this.formTarget.querySelector('input[name="buy_now[payment_method]"]:checked')
-    
-    if (addressMethod.value === "tipco_address" && !paymentMethod) {
-      alert("กรุณาเลือกวิธีการชำระเงิน")
-      return
-    }
-
-    if (paymentMethod && paymentMethod.value === "promptpay") {
-      const proofOfPayment = this.promptpayTarget.querySelector('input[name="buy_now[proof_of_payment]"]')
+    if (addressMethod.value === "current_address") {
+      const proofOfPayment = this.currentAddressTarget.querySelector('input[name="buy_now[proof_of_payment]"]')
       if (!proofOfPayment.files[0]) {
         alert("กรุณาอัพโหลดหลักฐานการชำระเงิน")
         return
+      }
+    } else {
+      const paymentMethod = this.formTarget.querySelector('input[name="buy_now[payment_method]"]:checked')
+      if (!paymentMethod) {
+        alert("กรุณาเลือกวิธีการชำระเงิน")
+        return
+      }
+
+      if (paymentMethod.value === "promptpay") {
+        const proofOfPayment = this.promptpayTarget.querySelector('input[name="buy_now[proof_of_payment]"]')
+        if (!proofOfPayment.files[0]) {
+          alert("กรุณาอัพโหลดหลักฐานการชำระเงิน")
+          return
+        }
       }
     }
 
