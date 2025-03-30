@@ -16,7 +16,6 @@ class Cart < ApplicationRecord
 
     cart_items = self.items || []
 
-    # ตรวจสอบว่าสินค้าซ้ำกันหรือไม่
     unless cart_items.any? { |item| item["product_id"] == product.id }
       cart_items << {
         "product_id" => product.id,

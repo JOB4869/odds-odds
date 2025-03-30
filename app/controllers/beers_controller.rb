@@ -3,7 +3,7 @@ class BeersController < ApplicationController
 
   def index
     @user = Current.user
-    @product = Product.first # หรือใช้ product ที่ต้องการ
+    @product = Product.first
     if @user
       @buy_nows = @user.buy_nows.order(created_at: :desc).limit(5)
       @total_beers = @user.buy_nows.completed.where(product_id: nil).sum(:amount)

@@ -82,15 +82,14 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:name, :description, :price, images: [])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def product_params
+    params.require(:product).permit(:name, :description, :price, images: [])
+  end
 
     def validate_user_profile
       user = Current.user

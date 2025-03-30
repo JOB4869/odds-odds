@@ -115,7 +115,6 @@ class CartsController < ApplicationController
         Rails.logger.info "Product #{product.id} marked as sold"
       end
 
-      # ลบสินค้าที่ซื้อแล้วออกจากตะกร้า
       remaining_items = @cart.items.reject { |item| product_ids.include?(item["product_id"].to_s) }
       @cart.update!(items: remaining_items)
       Rails.logger.info "Cart updated, remaining items: #{remaining_items.length}"
