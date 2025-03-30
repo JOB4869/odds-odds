@@ -24,7 +24,7 @@ class BuyNowsController < ApplicationController
       end
       redirect_to beers_path, notice: "อัปโหลดสลิปเรียบร้อย"
     else
-      flash.now[:alert] = "เกิดข้อผิดพลาด: #{@buy_now.errors.full_messages.join(', ')}"
+      flash.now[:alert] = "เกิดข้อผิดพลาด: #{@buy_now.errors.full_messages.join(", ")}"
       render :new, status: :unprocessable_entity
     end
   end

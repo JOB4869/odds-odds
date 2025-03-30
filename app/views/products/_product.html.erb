@@ -3,7 +3,7 @@
     <div class="w-46 h-80 flex flex-col justify-between">
       <div class="flex-1 flex items-center justify-center relative">
         <% if product.images.attached? %>
-          <%= image_tag product.images.first, class: "w-full h-full object-cover rounded-lg #{'opacity-50' if product.sold?}" %>
+          <%= image_tag product.images.first, class: "w-full h-full object-cover rounded-lg #{"opacity-50" if product.sold?}" %>
           <% if product.sold? %>
             <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
           <% end %>
@@ -17,7 +17,7 @@
         <% end %>
       </div>
       <div class="text-center mt-4">
-        <div class="text-xl font-semibold line-clamp-3 <%= 'text-gray-500' if product.sold? %>">
+        <div class="text-xl font-semibold line-clamp-3 <%= "text-gray-500" if product.sold? %>">
           <%= product.name %>
         </div>
         <div class="text-lg">

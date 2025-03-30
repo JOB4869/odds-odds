@@ -10,7 +10,7 @@ export default class extends Controller {
   togglePassword(event) {
     const isChecked = event.target.checked
     this.passwordTargets.forEach(field => {
-      field.type = isChecked ? 'text' : 'password'
+      field.type = isChecked ? "text" : "password"
     })
   }
 } 

@@ -12,11 +12,11 @@
 
     <div class="grid grid-cols-1 gap-4 mb-8">
       <% if @product.images.attached? %>
-        <%= image_tag @product.images.first, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
+        <%= image_tag @product.images.first, class: "rounded-lg object-cover #{@product.sold? ? "opacity-50" : ""}" %>
         <% if @product.images.length > 1 %>
           <div class="grid grid-cols-3 gap-4 mb-8">
             <% @product.images[1..].each do |image| %>
-              <%= image_tag image, class: "rounded-lg object-cover #{@product.sold? ? 'opacity-50' : ''}" %>
+              <%= image_tag image, class: "rounded-lg object-cover #{@product.sold? ? "opacity-50" : ""}" %>
             <% end %>
           </div>
         <% end %>

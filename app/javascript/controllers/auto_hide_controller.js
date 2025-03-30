@@ -7,8 +7,8 @@ export default class extends Controller {
 
   connect() {
     setTimeout(() => {
-      this.element.style.opacity = '0'
-      this.element.style.transition = 'opacity 0.5s ease-out'
+      this.element.style.opacity = "0"
+      this.element.style.transition = "opacity 0.5s ease-out"
       
       setTimeout(() => {
         this.element.remove()
