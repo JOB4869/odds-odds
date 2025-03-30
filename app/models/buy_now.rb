@@ -17,7 +17,11 @@ class BuyNow < ApplicationRecord
   after_update :update_beer_balance, if: :completed?
 
   def total_price
-    product.price * amount
+    if product&.name == "เบียร์ ODDS" && amount >= 3
+      100  # ราคาพิเศษเมื่อซื้อ 3 แก้ว
+    else
+      product.price * amount
+    end
   end
 
   def process_purchase

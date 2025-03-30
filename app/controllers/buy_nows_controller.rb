@@ -13,9 +13,10 @@ class BuyNowsController < ApplicationController
       return
     end
 
-    @buy_now = Current.user.buy_nows.build(
+    @buy_now = Current.user.buy_nows.find_or_create_by!(
       amount: params[:amount],
-      product: @product
+      product: @product,
+      status: "pending"
     )
   end
 
@@ -86,10 +87,15 @@ class BuyNowsController < ApplicationController
     if params[:proof_of_payment].present?
       @buy_now.proof_of_payment.attach(params[:proof_of_payment])
       @buy_now.update(status: "completed")
-      redirect_to user_dashboard_path, notice: "เติมเบียร์สำเร็จ! 🍺",
+
+      # เพิ่มจำนวนเบียร์ในคลัง
+      @user = Current.user
+      @user.increment!(:beer_balance, @buy_now.amount)
+
+      redirect_to beers_path, notice: "เติมเบียร์สำเร็จ! 🍺",
       data: { testid: "buy-now-confirm-payment-success-notice" }
     else
-      redirect_to qr_code_path(@buy_now), alert: "กรุณาอัปโหลดสลิปการชำระเงิน",
+      redirect_to qr_code_buy_now_path(@buy_now), alert: "กรุณาอัปโหลดสลิปการชำระเงิน",
       data: { testid: "buy-now-confirm-payment-error-notice" }
     end
   end

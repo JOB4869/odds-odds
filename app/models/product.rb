@@ -8,10 +8,12 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0, message: "ต้องมากกว่าหรือเท่ากับ 0" }
 
   def sold?
+    return false if name == "เบียร์ ODDS"
     self.sold == true || buy_nows.where(status: :completed).exists?
   end
 
   def remaining_amount
+    return Float::INFINITY if name == "เบียร์ ODDS"
     initial_amount = self.amount || 1
     sold_amount = buy_nows.where(status: :completed).sum(:amount)
     initial_amount - sold_amount

@@ -5,6 +5,7 @@ class BeersController < ApplicationController
     @user = Current.user
     @product = Product.find_or_create_by(name: "เบียร์ ODDS") do |product|
       product.price = 33.3333333333
+      product.amount = nil
     end
 
     if @user
@@ -34,6 +35,7 @@ class BeersController < ApplicationController
     amount = params[:amount].to_i
     @product = Product.find_or_create_by(name: "เบียร์ ODDS") do |product|
       product.price = 33.3333333333
+      product.amount = nil
     end
 
     redirect_to new_buy_now_path(amount: amount, product_id: @product.id), notice: "กรุณาชำระเงิน",

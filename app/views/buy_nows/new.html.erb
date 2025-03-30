@@ -20,7 +20,7 @@
     <div class="mb-4 py-2 w-full">
     <div class="text-lg font-semibold" data: { testid: "buy-now-new-amount" }><%= @buy_now.amount %> แก้ว</div>
     <div class="text-gray-600" data: { testid: "buy-now-new-amount-text" }>
-      <%= number_to_currency(@buy_now.amount * 33.3333333333, unit: "", format: "%n บาท", precision: 0) %>
+      <%= number_to_currency(@buy_now.total_price, unit: "", format: "%n บาท", precision: 0) %>
     </div>
 
   </div>
@@ -29,9 +29,7 @@
     <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment", data: { testid: "buy-now-new-qr-code-odds" } %>
   </div>
 
-  <%= form_with(model: @buy_now, local: true, class: "w-full") do |f| %>
-    <%= f.hidden_field :amount %>
-    <%= f.hidden_field :status, value: :completed %>
+  <%= form_with(model: @buy_now, url: confirm_payment_buy_now_path(@buy_now), method: :patch, multipart: true, local: true, class: "w-full") do |f| %>
   <div class="w-full flex justify-between items-start px-8 py-2">
     <div class="flex items-center">
        <div class="block text-base font-medium mb-2" data: { testid: "buy-now-new-proof-of-payment-label" }>
@@ -42,7 +40,7 @@
   </div>
   
   <div class="w-full flex justify-between items-start px-8 py-2">
-      <%= f.file_field :proof_of_payment, 
+      <%= file_field_tag :proof_of_payment, 
           class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
           accept: "image/*",
           required: true,
