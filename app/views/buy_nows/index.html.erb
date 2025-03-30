@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
     <div class="text-2xl font-semibold w-full mb-6">
-      <h1>รายการสินค้าที่ซื้อ</h1>
+      <h1 data: { testid: "buy-now-index-title" }>รายการสินค้าที่ซื้อ</h1>
     </div>
 
     <% if @buy_nows.any? %>
@@ -11,39 +11,39 @@
           <div class="flex justify-between items-start mb-4">
             <div class="space-x-4">
               <div>
-                <h2 class="text-xl font-semibold"><%= buy_now.product&.name || "เบียร์ ODDS" %></h2>
+                <h2 class="text-xl font-semibold" data: { testid: "buy-now-index-product-name" }><%= buy_now.product&.name || "เบียร์ ODDS" %></h2>
               </div>
               <% if buy_now.product&.images&.first %>
                 <div class="w-40 h-40 flex-shrink-0">
-                  <%= image_tag buy_now.product.images.first, class: "w-full h-full object-cover rounded-lg shadow-md" %>
+                  <%= image_tag buy_now.product.images.first, class: "w-full h-full object-cover rounded-lg shadow-md" data: { testid: "buy-now-index-product-image" } %>
                 </div>
               <% end %>
-            <p class="mt-1 pl-4 text-base">จำนวนที่ซื้อ: <%= buy_now.original_amount || buy_now.amount %></p>
+            <p class="mt-1 pl-4 text-base" data: { testid: "buy-now-index-product-amount" }>จำนวนที่ซื้อ: <%= buy_now.original_amount || buy_now.amount %></p>
 
             </div>
           </div>
 
           <div class="mt-1 pl-4 text-base">
-            <p>วันที่สั่งซื้อ: <%= l buy_now.created_at.in_time_zone("Asia/Bangkok"), format: :long %></p>
-            <p>ที่รับสินค้า: <%= buy_now.address_method == "current_address" ? buy_now.user.address : "รับที่ TIPCO" %></p>
-            <p>วิธีการชำระเงิน: <% if buy_now.payment_method == "cash_on_delivery" %>
+            <p data: { testid: "buy-now-index-purchase-date" }>วันที่สั่งซื้อ: <%= l buy_now.created_at.in_time_zone("Asia/Bangkok"), format: :long %></p>
+            <p data: { testid: "buy-now-index-delivery-address" }>ที่รับสินค้า: <%= buy_now.address_method == "current_address" ? buy_now.user.address : "รับที่ TIPCO" %></p>
+            <p data: { testid: "buy-now-index-payment-method" }>วิธีการชำระเงิน: <% if buy_now.payment_method == "cash_on_delivery" %>
                     เก็บเงินปลายทาง
                   <% else %>
                     <% if buy_now.proof_of_payment.attached? %>
-                      <%= image_tag buy_now.proof_of_payment, class: "w-40 h-auto max-w-md rounded-lg shadow-md " %>
+                      <%= image_tag buy_now.proof_of_payment, class: "w-40 h-auto max-w-md rounded-lg shadow-md ", data: { testid: "buy-now-index-payment-proof-image" } %>
                     <% else %>
-                      <p class="text-red-500 text-sm">ยังไม่มีสลิปการชำระเงิน</p>
+                      <p class="text-red-500 text-sm" data: { testid: "buy-now-index-no-payment-proof-text" }>ยังไม่มีสลิปการชำระเงิน</p>
                     <% end %>
                   <% end %></p>
             <% if buy_now.product %>
-              <p class="mt-1 pl-4 text-base">ราคา: <%= number_to_currency(buy_now.product.price, unit: "", precision: 0) %> บาท</p>
+              <p data: { testid: "buy-now-index-product-price" }>ราคา: <%= number_to_currency(buy_now.product.price, unit: "", precision: 0) %> บาท</p>
             <% end %>
           </div>
 
           <% if buy_now.completed? && buy_now.proof_of_payment.attached? %>
             <div class="mt-4">
-              <p class="text-sm text-gray-600">หลักฐานการชำระเงิน:</p>
-              <%= image_tag buy_now.proof_of_payment, class: "mt-2 rounded-lg max-w-full h-auto" %>
+              <p data: { testid: "buy-now-index-payment-proof-label" }>หลักฐานการชำระเงิน:</p>
+              <%= image_tag buy_now.proof_of_payment, class: "mt-2 rounded-lg max-w-full h-auto" data: { testid: "buy-now-index-payment-proof-image" } %>
             </div>
           <% end %>
         </div>
@@ -51,8 +51,8 @@
     </div>
   <% else %>
     <div class="text-center py-12">
-      <p class="text-gray-600 text-lg">ยังไม่มีรายการสินค้าที่ซื้อ</p>
-      <%= link_to "ดูสินค้าทั้งหมด", products_path, class: "mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600" %>
+    <p data: { testid: "buy-now-index-no-buy-nows-text" } class="text-gray-600 text-lg">ยังไม่มีรายการสินค้าที่ซื้อ</p>
+      <%= link_to "ดูสินค้าทั้งหมด", products_path, class: "mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600" data: { testid: "buy-now-index-view-all-products-link" } %>
     </div>
   <% end %>
     <% content_for :back_users do %>

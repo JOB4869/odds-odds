@@ -2,7 +2,7 @@
 
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center">
+      <h1 class="text-2xl font-semibold flex items-center" data: { testid: "login-title" }>
         <span class="mr-2">
           ➡️
         </span>
@@ -10,7 +10,7 @@
       </h1>
     </div>
     <div class="py-2 w-full">
-      <p class="text-base "> 
+      <p class="text-base " data: { testid: "login-description" }> 
         เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน
       </p>
     </div>
@@ -20,20 +20,23 @@
     <%= form_with url: sign_in_path, class: "space-y-4", data: { controller: "password-toggle" } do |form| %>
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :email, "อีเมล", class: "block text-base font-medium" %>
+          <%= form.label :email, "อีเมล", class: "block text-base font-medium",
+          data: { testid: "email-login-label" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
         <div class="relative">
           <%= form.text_field :email, 
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกอีเมลที่ใช้งาน" %>
+              placeholder: "กรุณากรอกอีเมลที่ใช้งาน",
+              data: { testid: "email-login-input" } %>
         </div>
       </div>
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :password, "รหัสผ่าน", class: "block text-base font-medium" %>
+          <%= form.label :password, "รหัสผ่าน", class: "block text-base font-medium",
+          data: { testid: "password-login-label" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -41,7 +44,7 @@
           <%= form.password_field :password,
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
               placeholder: "กรุณากรอกรหัสผ่าน",
-              data: { password_toggle_target: "password" } %>
+              data: { password_toggle_target: "password", testid: "password-login-input" } %>
         </div>
           <p class="text-sm text-gray-500 mt-1">
             รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
@@ -56,23 +59,24 @@
                 password_toggle_target: "checkbox",
                 action: "change->password-toggle#togglePassword"
               } %>
-          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm" %>
+          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm", data: { testid: "show-password-input" } %>
         </div>
       </div>
 
       <div class="mt-8">
-          <%= link_to "ลืมรหัสผ่าน", password_reset_path, class: "text-base underline decoration-2" %>
+          <%= link_to "ลืมรหัสผ่าน", password_reset_path, class: "text-base underline decoration-2", data: { testid: "forgot-password-link" } %>
       </div>
 
       <div class="mt-8">
         <%= form.submit "เข้าสู่ระบบ",
-            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+            data: { testid: "login-button" } %>
       </div>
     <% end %>
     <div class="mt-4">
       <p class="text-sm">
         ยังไม่มีบัญชี? 
-        <%= link_to "สร้างบัญชีใหม่", sign_up_path, class: "text-blue-600 hover:text-blue-800" %>
+        <%= link_to "สร้างบัญชีใหม่", sign_up_path, class: "text-blue-600 hover:text-blue-800", data: { testid: "sign-up-link" } %>
       </p>
     </div>
   </div>

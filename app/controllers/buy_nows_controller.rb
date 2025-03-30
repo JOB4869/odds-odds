@@ -22,7 +22,8 @@ class BuyNowsController < ApplicationController
       if params[:buy_now][:proof_of_payment].present?
         @buy_now.proof_of_payment.attach(params[:buy_now][:proof_of_payment])
       end
-      redirect_to beers_path, notice: "อัปโหลดสลิปเรียบร้อย"
+      redirect_to beers_path, notice: "อัปโหลดสลิปเรียบร้อย",
+      data: { testid: "buy-now-create-success-notice" }
     else
       flash.now[:alert] = "เกิดข้อผิดพลาด: #{@buy_now.errors.full_messages.join(", ")}"
       render :new, status: :unprocessable_entity
@@ -56,7 +57,8 @@ class BuyNowsController < ApplicationController
       if @buy_now.payment_method == "promptpay" && params[:buy_now][:proof_of_payment].present?
         @buy_now.proof_of_payment.attach(params[:buy_now][:proof_of_payment])
       end
-      redirect_to root_path, notice: "สั่งซื้อสินค้าสำเร็จ! 🎉"
+      redirect_to root_path, notice: "สั่งซื้อสินค้าสำเร็จ! 🎉",
+      data: { testid: "buy-now-confirm-purchase-success-notice" }
     else
       flash.now[:alert] = "เกิดข้อผิดพลาดในการบันทึกข้อมูล"
       render :purchase, status: :unprocessable_entity
@@ -78,9 +80,11 @@ class BuyNowsController < ApplicationController
     if params[:proof_of_payment].present?
       @buy_now.proof_of_payment.attach(params[:proof_of_payment])
       @buy_now.update(status: "completed")
-      redirect_to user_dashboard_path, notice: "เติมเบียร์สำเร็จ! 🍺"
+      redirect_to user_dashboard_path, notice: "เติมเบียร์สำเร็จ! 🍺",
+      data: { testid: "buy-now-confirm-payment-success-notice" }
     else
-      redirect_to qr_code_path(@buy_now), alert: "กรุณาอัปโหลดสลิปการชำระเงิน"
+      redirect_to qr_code_path(@buy_now), alert: "กรุณาอัปโหลดสลิปการชำระเงิน",
+      data: { testid: "buy-now-confirm-payment-error-notice" }
     end
   end
 

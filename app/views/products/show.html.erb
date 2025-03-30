@@ -4,13 +4,13 @@
   <div class="w-full">
     <div class="text-2xl font-semibold flex items-center justify-center w-full mb-6">
       <% if @product.sold? %>
-        <span class="text-gray-400"><%= @product.name %></span> 
+        <span class="text-gray-400" data: { testid: "product-show-name-text" } ><%= @product.name %></span> 
       <% else %> 
         <%= @product.name %> 
       <% end %>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 mb-8">
+    <div class="grid grid-cols-1 gap-4 mb-8" data: { testid: "product-show-image-container" }>
       <% if @product.images.attached? %>
         <%= image_tag @product.images.first, class: "rounded-lg object-cover #{@product.sold? ? "opacity-50" : ""}" %>
         <% if @product.images.length > 1 %>
@@ -22,15 +22,15 @@
         <% end %>
       <% else %>
         <div class="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-          <span class="text-gray-400">ไม่มีรูปภาพ</span>
+          <span class="text-gray-400" data: { testid: "product-show-no-image-text" }>ไม่มีรูปภาพ</span>
         </div>
       <% end %>
       <% if @product.sold? %>
-        <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
+        <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg", data: { testid: "product-show-sold-out-image" } %>
       <% end %>
     </div>
 
-    <div class="flex justify-center items-center mb-8">
+    <div class="flex justify-center items-center mb-8" data: { testid: "product-show-price-container" }>
       <% if @product.sold? %>
         <span class="text-gray-400"><%= number_to_currency(@product.price, unit: "", precision: 0) %> บาท</span>
       <% else %>
@@ -38,7 +38,7 @@
       <% end %>
     </div>
 
-    <div class="flex justify-center items-center mb-8">
+    <div class="flex justify-center items-center mb-8" data: { testid: "product-show-description-container" }>
       <% if @product.sold? %>
         <span class="text-gray-400"><%= @product.description %></span>
       <% else %>

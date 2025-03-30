@@ -1,26 +1,26 @@
-<%= link_to product, class: "block" do %>
+<%= link_to product, class: "block", data: { testid: "product-link" } do %>
   <div id="<%= dom_id product %>">
     <div class="w-46 h-80 flex flex-col justify-between">
       <div class="flex-1 flex items-center justify-center relative">
         <% if product.images.attached? %>
-          <%= image_tag product.images.first, class: "w-full h-full object-cover rounded-lg #{"opacity-50" if product.sold?}" %>
+          <%= image_tag product.images.first, class: "w-full h-full object-cover rounded-lg #{"opacity-50" if product.sold?}", data: { testid: "product-image" } %>
           <% if product.sold? %>
             <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
           <% end %>
         <% else %>
           <div class="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
             <% if product.sold? %>
-            <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg" %>
-          <% end %>
-            <span class="text-gray-400">ไม่มีรูปภาพ</span>
+              <%= image_tag "sold_out.svg", class: "absolute m-auto rotate-[-15deg] w-30 h-30 drop-shadow-lg", data: { testid: "product-sold-out-image" } %>
+            <% end %>
+            <span class="text-gray-400" data: { testid: "product-no-image-text" }>ไม่มีรูปภาพ</span>
           </div>
         <% end %>
       </div>
-      <div class="text-center mt-4">
+      <div class="text-center mt-4", data: { testid: "product-name-text" }>
         <div class="text-xl font-semibold line-clamp-3 <%= "text-gray-500" if product.sold? %>">
           <%= product.name %>
         </div>
-        <div class="text-lg">
+        <div class="text-lg" data: { testid: "product-price-text" }>
           <% if product.sold? %>
             <span class="text-gray-400"><%= number_to_currency(product.price, unit: "", precision: 0) %> บาท</span>
           <% else %>

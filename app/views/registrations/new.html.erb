@@ -2,7 +2,7 @@
 
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center">
+      <h1 class="text-2xl font-semibold flex items-center" data: { testid: "create-user-title" }>
         <span class="mr-2">
           👤
         </span>
@@ -27,20 +27,23 @@
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :email, "อีเมล", class: "block text-base font-medium " %>
+          <%= form.label :email, "อีเมล", class: "block text-base font-medium ",
+          data: { testid: "email-signup-label" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
         <div class="relative">
           <%= form.text_field :email, 
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกอีเมลที่ใช้งาน" %>
+              placeholder: "กรุณากรอกอีเมลที่ใช้งาน",
+              data: { testid: "email-signup-input" } %>
         </div>
       </div>
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :password, "รหัสผ่าน", class: "block text-base font-medium" %>
+          <%= form.label :password, "รหัสผ่าน", class: "block text-base font-medium",
+          data: { testid: "password-signup-label" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -48,7 +51,8 @@
           <%= form.password_field :password,
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
               placeholder: "กรุณากรอกรหัสผ่าน",
-              data: { password_toggle_target: "password" } %>
+              data: { password_toggle_target: "password",
+              testid: "password-signup-input" } %>
         </div>
         <p class="text-sm text-gray-500 mt-1">
           รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
@@ -57,7 +61,8 @@
 
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :password_confirmation, "ยืนยันรหัสผ่าน", class: "block text-base font-medium" %>
+          <%= form.label :password_confirmation, "ยืนยันรหัสผ่าน", class: "block text-base font-medium",
+          data: { testid: "password-confirmation-signup-label" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -65,7 +70,8 @@
           <%= form.password_field :password_confirmation,
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
               placeholder: "กรุณากรอกรหัสผ่าน",
-              data: { password_toggle_target: "password" }  %>
+              data: { password_toggle_target: "password",
+              testid: "confirm-password-signup-input" } %>
         </div>
         <p class="text-sm text-gray-500 mt-1">
           รหัสผ่านต้องมีตัวอักษรระหว่าง 8-16 ตัวอักษรและประกอบด้วยตัวอักษรและตัวเลข สามารถใช้สัญลักษณ์เหล่านี้ได้เท่านั้น !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
@@ -80,13 +86,15 @@
                 password_toggle_target: "checkbox",
                 action: "change->password-toggle#togglePassword"
               } %>
-          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm" %>
+          <%= form.label :show_password, "แสดงรหัสผ่าน", class: "ml-2 block text-sm",
+          data: { testid: "show-password-signup-input" } %>
         </div>
       </div>
 
       <div class="mt-8">
         <%= form.submit "สร้างบัญชีผู้ใช้",
-            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+            data: { testid: "signup-button" } %>
       </div>
     <% end %>
   </div>

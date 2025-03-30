@@ -6,7 +6,8 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user.present?
       PasswordMailer.with(user: @user).reset.deliver_later
-      redirect_to root_path, notice: "ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว"
+      redirect_to root_path, notice: "ส่งลิงก์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว",
+      data: { testid: "password-reset-create-success-notice" }
     else
       flash.now[:alert] = "ไม่พบอีเมลนี้ในระบบ"
       render :new, status: :unprocessable_entity
@@ -16,13 +17,15 @@ class PasswordResetsController < ApplicationController
   def edit
     @user = User.find_signed!(params[:token], purpose: "password_reset")
   rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to sign_in_path, alert: "ลิงก์รีเซ็ตรหัสผ่านหมดอายุแล้ว กรุณาขอลิงก์ใหม่"
+    redirect_to sign_in_path, alert: "ลิงก์รีเซ็ตรหัสผ่านหมดอายุแล้ว กรุณาขอลิงก์ใหม่",
+    data: { testid: "password-reset-edit-error-notice" }
   end
 
   def update
     @user = User.find_signed!(params[:token], purpose: "password_reset")
     if @user.update(password_params)
-      redirect_to sign_in_path, notice: "รีเซ็ตรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่"
+      redirect_to sign_in_path, notice: "รีเซ็ตรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่",
+      data: { testid: "password-reset-update-success-notice" }
     else
       render :edit, status: :unprocessable_entity
     end

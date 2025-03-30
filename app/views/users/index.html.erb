@@ -2,48 +2,54 @@
 
   <div class="w-full">
     <div class="py-2 w-full flex justify-between items-center">
-      <h1 class="text-2xl font-semibold flex items-center text-black">
+      <h1 class="text-2xl font-semibold flex items-center text-black" data: { testid: "user-index-title" }>
         <span class="mr-2">
           🧑
         </span>
         บัญชีผู้ใช้
       </h1>
       <% if @user %>
-        <span class="text-gray-600"><%= @user.email %></span>
+        <span class="text-gray-600" data: { testid: "user-email" }><%= @user.email %></span>
       <% end %>
     </div>
 
-      <%= link_to accounts_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4" do %>
+      <%= link_to accounts_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4",
+      data: { testid: "accounts-path-button" } do %>
         <span class="text-black mr-3">✏️</span>
         &nbsp;
         <span>บัญชีผู้ใช้</span>
       <% end %>
 
-      <%= link_to products_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4" do %>
+      <%= link_to products_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4",
+      data: { testid: "products-path-button" } do %>
         <span class="text-black mr-3">📦</span>
         &nbsp;
         <span>สินค้าของฉัน</span>
       <% end %>
 
-      <%= link_to buy_nows_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4" do %>
+      <%= link_to buy_nows_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4",
+      data: { testid: "buy-nows-path-button" } do %>
         <span class="text-black mr-3">🧾</span>
         &nbsp;
         <span>รายการสินค้าที่ซื้อ</span>
       <% end %>
 
-      <%= link_to edit_password_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4" do %>
+      <%= link_to edit_password_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-gray-50 rounded-md hover:bg-gray-100 transition-colors mt-4",
+      data: { testid: "edit-password-path-button" } do %>
         <span class="text-black mr-3">🗝️</span>
         &nbsp;
         <span>เปลี่ยนรหัสผ่าน</span>
       <% end %>
 
-      <%= link_to root_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-blue-200 rounded-md hover:bg-blue-300 transition-colors mt-4" do %>
+      <%= link_to root_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-blue-200 rounded-md hover:bg-blue-300 transition-colors mt-4",
+      data: { testid: "root-path-button" } do %>
         <span class="text-black mr-3">🏠</span>
         &nbsp;
         <span>หน้าหลัก ODDS ODDS SHOP</span>
       <% end %>
 
-      <%= link_to sign_out_modal_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-red-50 rounded-md hover:bg-red-100 transition-colors mt-8", data: { turbo_frame: "modal" } do %>
+      <%= link_to sign_out_modal_path, class: "text-2xl w-full px-4 py-2 flex items-center p-3 bg-red-50 rounded-md hover:bg-red-100 transition-colors mt-8", data: { turbo_frame: "modal",
+      testid: "sign-out-modal-button" } do %>
         <span class="text-red-600 mr-3">⬅️</span>
         &nbsp;
         <span class="text-red-600">ออกจากระบบ</span>

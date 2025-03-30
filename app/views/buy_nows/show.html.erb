@@ -2,7 +2,7 @@
 
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
   <div class="w-full">
-    <h1 class="text-2xl font-semibold mb-6">รายละเอียดการสั่งซื้อ</h1>
+    <h1 class="text-2xl font-semibold mb-6" data: { testid: "buy-now-show-title" }>รายละเอียดการสั่งซื้อ</h1>
 
     <div class="space-y-6">
       <div>
@@ -10,24 +10,25 @@
         <div class="mt-2 flex items-center space-x-4">
           <%= image_tag @product.images.first, class: "w-20 h-20 object-cover rounded-lg" if @product.images.attached? %>
           <div>
-            <p class="text-lg font-medium text-gray-900"><%= @product.name %></p>
-            <p class="text-sm text-gray-500">จำนวน: <%= @buy_now.amount %></p>
-            <p class="text-lg font-semibold text-blue-600">ราคา: <%= number_to_currency(@product.price, unit: "฿") %></p>
+            <p class="text-lg font-medium text-gray-900" data: { testid: "buy-now-show-product-name" }><%= @product.name %></p>
+            <p class="text-sm text-gray-500" data: { testid: "buy-now-show-product-amount" }>จำนวน: <%= @buy_now.amount %></p>
+            <p class="text-lg font-semibold text-blue-600" data: { testid: "buy-now-show-product-price" }>ราคา: <%= number_to_currency(@product.price, unit: "฿") %></p>
           </div>
         </div>
       </div>
 
       <% if @buy_now.proof_of_payment.attached? %>
         <div>
-          <h2 class="text-lg font-medium text-gray-900">หลักฐานการชำระเงิน</h2>
+          <h2 class="text-lg font-medium text-gray-900" data: { testid: "buy-now-show-proof-of-payment-label" }>หลักฐานการชำระเงิน</h2>
           <div class="mt-2">
-            <%= image_tag @buy_now.proof_of_payment, class: "w-full h-auto rounded-lg" %>
+            <%= image_tag @buy_now.proof_of_payment, class: "w-full h-auto rounded-lg" data: { testid: "buy-now-show-proof-of-payment-image" } %>
           </div>
         </div>
       <% end %>
 
       <div class="flex justify-end space-x-4">
-        <%= link_to root_path, class: "inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+        <%= link_to root_path, class: "inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50",
+        data: { testid: "buy-now-show-back-to-home-link" } do %>
           กลับไปหน้าแรก
         <% end %>
       </div>

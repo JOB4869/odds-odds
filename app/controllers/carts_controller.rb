@@ -13,21 +13,25 @@ class CartsController < ApplicationController
   def add
     begin
       @cart.add_product(@product.id)
-      redirect_to product_path(@product), notice: "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว"
+      redirect_to product_path(@product), notice: "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว",
+      data: { testid: "cart-add-product-success-notice" }
     rescue => e
-      redirect_to product_path(@product), alert: e.message
+      redirect_to product_path(@product), alert: e.message,
+      data: { testid: "cart-add-product-error-notice" }
     end
   end
 
   def remove_item
     product_id = params[:product_id].to_i
     @cart.remove_item(product_id)
-    redirect_to current_carts_path, notice: "ลบสินค้าออกจากตะกร้าเรียบร้อยแล้ว"
+    redirect_to current_carts_path, notice: "ลบสินค้าออกจากตะกร้าเรียบร้อยแล้ว",
+    data: { testid: "cart-remove-item-success-notice" }
   end
 
   def clear
     @cart.clear_cart
-    redirect_to current_carts_path, notice: "ล้างตะกร้าเรียบร้อยแล้ว"
+    redirect_to current_carts_path, notice: "ล้างตะกร้าเรียบร้อยแล้ว",
+    data: { testid: "cart-clear-success-notice" }
   end
 
   def purchase_all
@@ -37,7 +41,8 @@ class CartsController < ApplicationController
     end
 
     if @cart_items.empty?
-      redirect_to current_carts_path, alert: "ไม่มีสินค้าที่สามารถซื้อได้ในตะกร้า"
+      redirect_to current_carts_path, alert: "ไม่มีสินค้าที่สามารถซื้อได้ในตะกร้า",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
@@ -53,22 +58,26 @@ class CartsController < ApplicationController
     Rails.logger.info "Product IDs: #{product_ids.inspect}"
 
     if product_ids.blank?
-      redirect_to current_carts_path, alert: "ไม่พบสินค้าที่ต้องการซื้อ"
+      redirect_to current_carts_path, alert: "ไม่พบสินค้าที่ต้องการซื้อ",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
     if address_method.blank?
-      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกที่รับสินค้า"
+      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกที่รับสินค้า",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
     if payment_method.blank?
-      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกวิธีการชำระเงิน"
+      redirect_to purchase_all_carts_path, alert: "กรุณาเลือกวิธีการชำระเงิน",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
     if payment_method == "promptpay" && params[:buy_now][:proof_of_payment].blank?
-      redirect_to purchase_all_carts_path, alert: "กรุณาอัพโหลดหลักฐานการชำระเงิน"
+      redirect_to purchase_all_carts_path, alert: "กรุณาอัพโหลดหลักฐานการชำระเงิน",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
@@ -79,7 +88,8 @@ class CartsController < ApplicationController
     Rails.logger.info "Sold products: #{sold_products.map(&:id)}"
 
     if sold_products.any?
-      redirect_to current_carts_path, alert: "มีสินค้าบางรายการถูกขายไปแล้ว กรุณาตรวจสอบและลองใหม่อีกครั้ง"
+      redirect_to current_carts_path, alert: "มีสินค้าบางรายการถูกขายไปแล้ว กรุณาตรวจสอบและลองใหม่อีกครั้ง",
+      data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
@@ -111,11 +121,13 @@ class CartsController < ApplicationController
       Rails.logger.info "Cart updated, remaining items: #{remaining_items.length}"
     end
 
-    redirect_to root_path, notice: "สั่งซื้อสินค้าเรียบร้อยแล้ว"
+    redirect_to root_path, notice: "สั่งซื้อสินค้าเรียบร้อยแล้ว",
+    data: { testid: "cart-purchase-all-success-notice" }
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error "Error in confirm_purchase_all: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
-    redirect_to current_carts_path, alert: "เกิดข้อผิดพลาดในการสั่งซื้อ กรุณาลองใหม่อีกครั้ง"
+    redirect_to current_carts_path, alert: "เกิดข้อผิดพลาดในการสั่งซื้อ กรุณาลองใหม่อีกครั้ง",
+    data: { testid: "cart-purchase-all-error-notice" }
   end
 
   private

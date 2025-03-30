@@ -2,7 +2,7 @@
 
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center text-black">
+      <h1 class="text-2xl font-semibold flex items-center text-black" data: { testid: "create-user-title" }>
         <span class="mr-2">
           👤
         </span>
@@ -10,14 +10,15 @@
       </h1>
     </div>
       <div class="py-2 w-full mb-8 mt-8">
-        <p class="text-black text-base "> 
+        <p class="text-black text-base " data: { testid: "create-user-description" }> 
           ขอบคุณสำหรับการลงทะเบียน
         </p>
       </div> 
 
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg mt-18">
         <div class="w-full flex justify-between items-start px-8 py-2">
-          <%= link_to users_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-gray-50 hover:bg-gray-100 " do %>
+          <%= link_to users_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-gray-50 hover:bg-gray-100 ",
+          data: { testid: "back-to-user-path-button" } do %>
             <span class="text-black">กลับสู่หน้าบัญชีผู้ใช้</span>
           <% end %>
         </div>
@@ -25,7 +26,8 @@
 
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg text-white mt-2">
         <div class="w-full flex justify-between items-start px-8 py-2">
-          <%= link_to root_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700" do %>
+          <%= link_to root_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700",
+          data: { testid: "back-to-root-path-button" } do %>
             <span class="text-white">หน้าหลัก ODDS ODDS SHOP</span>
           <% end %>
         </div>
@@ -33,7 +35,8 @@
 
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg text-white mt-2">
         <div class="w-full flex justify-between items-start px-8 py-2">
-          <%= link_to beers_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700" do %>
+          <%= link_to beers_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700",
+          data: { testid: "back-to-beers-path-button" } do %>
             <span class="text-white">เบียร์ ODDS</span>
           <% end %>
         </div>
@@ -41,7 +44,8 @@
 
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg text-white mt-2">
         <div class="w-full flex justify-between items-start px-8 py-2">
-          <%= link_to accounts_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700" do %>
+          <%= link_to accounts_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700",
+          data: { testid: "back-to-accounts-path-button" } do %>
             <span class="text-white">เพิ่มข้อมูลของบัญชีผู้ใช้</span>
           <% end %>
         </div>

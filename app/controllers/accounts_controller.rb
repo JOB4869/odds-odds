@@ -18,9 +18,11 @@ class AccountsController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to accounts_path, notice: "บันทึกข้อมูลสำเร็จ"
+      redirect_to accounts_path, notice: "บันทึกข้อมูลสำเร็จ",
+      data: { testid: "account-create-success-notice" }
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity,
+      data: { testid: "account-create-error-notice" }
     end
   end
 
@@ -31,7 +33,8 @@ class AccountsController < ApplicationController
   def update
     @user = Current.user
     if @user.update(user_params)
-      redirect_to accounts_path, notice: "อัพเดทข้อมูลสำเร็จ"
+      redirect_to accounts_path, notice: "อัพเดทข้อมูลสำเร็จ",
+      data: { testid: "account-update-success-notice" }
     else
       flash.now[:alert] = "กรุณาตรวจสอบข้อมูลที่กรอก"
       render :edit, status: :unprocessable_entity

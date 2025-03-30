@@ -18,9 +18,11 @@ class BeersController < ApplicationController
     if @user.buy_nows.completed.where(product_id: nil).sum(:amount) > 0
       latest_buy_now = @user.buy_nows.completed.where(product_id: nil).order(created_at: :desc).first
       latest_buy_now.update(amount: latest_buy_now.amount - 1)
-      redirect_to beers_path, notice: "ดื่มเบียร์สำเร็จ! ", status: :see_other
+      redirect_to beers_path, notice: "ดื่มเบียร์สำเร็จ! ", status: :see_other,
+      data: { testid: "check-out-beer-success-notice" }
     else
-      redirect_to beers_path, alert: "คุณไม่มีเบียร์ในคลัง", status: :see_other
+      redirect_to beers_path, alert: "คุณไม่มีเบียร์ในคลัง", status: :see_other,
+      data: { testid: "check-out-beer-error-notice" }
     end
   end
 end

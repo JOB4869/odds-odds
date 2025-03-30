@@ -3,7 +3,7 @@
 <div class="flex flex-col items-center w-full max-w-md mx-auto  bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center text-black">
+      <h1 class="text-2xl font-semibold flex items-center text-black" data: { testid: "buy-now-new-title" }>
         <span class="mr-2">
           💵
         </span>
@@ -12,21 +12,21 @@
     </div>  
 
     <% if flash[:alert] %>
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert" data: { testid: "buy-now-new-alert" }>
         <span class="block sm:inline"><%= flash[:alert] %></span>
       </div>
     <% end %>
 
     <div class="mb-4 py-2 w-full">
-    <div class="text-lg font-semibold"><%= @buy_now.amount %> แก้ว</div>
-    <div class="text-gray-600">
+    <div class="text-lg font-semibold" data: { testid: "buy-now-new-amount" }><%= @buy_now.amount %> แก้ว</div>
+    <div class="text-gray-600" data: { testid: "buy-now-new-amount-text" }>
       <%= number_to_currency(@buy_now.amount * 33.3333333333, unit: "", format: "%n บาท", precision: 0) %>
     </div>
 
   </div>
 
   <div class="mb-6 flex justify-center">
-    <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment" %>
+    <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment" data: { testid: "buy-now-new-qr-code-odds" } %>
   </div>
 
   <%= form_with(model: @buy_now, local: true, class: "w-full") do |f| %>
@@ -34,7 +34,7 @@
     <%= f.hidden_field :status, value: :completed %>
   <div class="w-full flex justify-between items-start px-8 py-2">
     <div class="flex items-center">
-       <div class="block text-base font-medium mb-2">
+       <div class="block text-base font-medium mb-2" data: { testid: "buy-now-new-proof-of-payment-label" }>
         หลักฐานการชำระเงิน
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
@@ -45,14 +45,15 @@
       <%= f.file_field :proof_of_payment, 
           class: "w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500",
           accept: "image/*",
-          required: true %>
+          required: true,
+          data: { testid: "buy-now-new-proof-of-payment-input" } %>
   </div>
 
     <div class="w-full mt-8">
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg ">
         <div class="w-full flex justify-between items-start px-8 py-2">
     <%= f.submit "ยืนยัน", 
-        class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg" %>
+        class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg" data: { testid: "buy-now-new-submit-button" } %>
         </div>
     <% end %>
       </div>
@@ -61,7 +62,7 @@
     <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg ">
       <div class="w-full flex justify-between items-start px-8 py-2">
         <%= link_to beers_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-gray-50 hover:bg-gray-100 " do %>
-          <span class="text-black">ย้อนกลับ</span>
+          <span class="text-black" data: { testid: "buy-now-new-back-button" }>ย้อนกลับ</span>
         <% end %>
       </div>
     </div>

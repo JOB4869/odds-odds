@@ -2,7 +2,7 @@
 
   <div class="w-full">
     <div class="py-2 w-full">
-      <h1 class="text-2xl font-semibold flex items-center">
+      <h1 class="text-2xl font-semibold flex items-center" data: { testid: "reset-password-title" }>
         <span class="mr-2">
           🔄
         </span>
@@ -10,7 +10,7 @@
       </h1>
     </div>
     <div class="py-2 w-full">
-      <p class="text-base "> 
+      <p class="text-base " data: { testid: "reset-password-description" }> 
         กรุณาใส่ที่อยู่อีเมลของคุณที่ลงทะเบียน
       </p>
     </div>
@@ -20,24 +20,28 @@
     <%= form_with url: password_reset_path, class: "space-y-4", data: { controller: "password-toggle" } do |form| %>
       <div class="space-y-1">
         <div class="flex items-center">
-          <%= form.label :email, "อีเมล", class: "block text-base font-medium" %>
+          <%= form.label :email, "อีเมล", class: "block text-base font-medium",
+          data: { testid: "email-label-reset-password" } %>
           &nbsp;
           <span class="text-base text-blue-600 ml-1">*</span>
         </div>
         <div class="relative">
           <%= form.text_field :email, 
               class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-              placeholder: "กรุณากรอกอีเมลที่ใช้งาน" %>
+              placeholder: "กรุณากรอกอีเมลที่ใช้งาน",
+              data: { testid: "email-input-reset-password" } %>
         </div>
       </div>
 
       <div class="mt-8">
         <%= form.submit "ตกลง",
-            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+            class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+            data: { testid: "submit-button-reset-password" } %>
       </div>
     <% end %>
     <div class="mt-4">
-        <%= link_to "กลับสู่หน้าเข้าสู่ระบบ", sign_in_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+        <%= link_to "กลับสู่หน้าเข้าสู่ระบบ", sign_in_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+        data: { testid: "back-to-sign-in-button-reset-password" } %>
     </div>
   </div>
 </div>

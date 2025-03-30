@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">รายการผู้ซื้อสินค้า: <%= @product.name %></h1>
+      <h1 class="text-2xl font-bold" data: { testid: "product-name-text" } >รายการผู้ซื้อสินค้า: <%= @product.name %></h1>
     </div>
 
     <% if @buy_nows.any? %>
@@ -10,46 +10,46 @@
           <div class="p-6">
             <div class="grid grid-cols-1 gap-4">
               <div>
-                <h3 class="text-base font-medium">ผู้ซื้อ :</h3>
+                <h3 class="text-base font-medium" data: { testid: "product-customer-name-label" }>ผู้ซื้อ :</h3>
                 <div class="mt-1 pl-4">
-                  <div class="text-base">
+                  <div class="text-base" data: { testid: "product-customer-name-text" }>
                     <%= buy_now.user.first_name %> <%= buy_now.user.last_name %>
                   </div>
-                  <div class="text-base">
+                  <div class="text-base" data: { testid: "product-customer-email-text" }>
                     <%= buy_now.user.email %>
                   </div>
                 </div>
               </div>
 
               <div>
-                <h3 class="text-base font-medium">จำนวน :</h3>
-                <div class="mt-1 pl-4 text-base"><%= buy_now.amount %></div>
+                <h3 class="text-base font-medium" data: { testid: "product-amount-label" }>จำนวน :</h3>
+                <div class="mt-1 pl-4 text-base" data: { testid: "product-amount-text" }><%= buy_now.amount %></div>
               </div>
 
               <div>
-                <h3 class="text-base font-medium">วันที่สั่งซื้อ :</h3>
-                <div class="mt-1 pl-4 text-base">
+                <h3 class="text-base font-medium" data: { testid: "product-order-date-label" }>วันที่สั่งซื้อ :</h3>
+                <div class="mt-1 pl-4 text-base" data: { testid: "product-order-date-text" }>
                   <%= l buy_now.created_at.in_time_zone("Asia/Bangkok"), format: :long %>
                 </div>
               </div>
 
               <div>
-                <h3 class="text-base font-medium">การจัดส่ง :</h3>
-                <div class="mt-1 pl-4 text-base">
+                <h3 class="text-base font-medium" data: { testid: "product-delivery-method-label" }>การจัดส่ง :</h3>
+                <div class="mt-1 pl-4 text-base" data: { testid: "product-delivery-method-text" }>
                   <%= buy_now.address_method == "current_address" ? buy_now.user.address : "รับที่ TIPCO" %>
                 </div>
               </div>
 
               <div>
-                <h3 class="text-base font-medium">การชำระเงิน :</h3>
-                <div class="mt-1 pl-4 text-base">
+                <h3 class="text-base font-medium" data: { testid: "product-payment-method-label" }>การชำระเงิน :</h3>
+                <div class="mt-1 pl-4 text-base" data: { testid: "product-payment-method-text" }>
                   <% if buy_now.payment_method == "cash_on_delivery" %>
                     เก็บเงินปลายทาง
                   <% else %>
                     <% if buy_now.proof_of_payment.attached? %>
-                      <%= image_tag buy_now.proof_of_payment, class: "w-40 h-auto max-w-md rounded-lg shadow-md" %>
+                    <%= image_tag buy_now.proof_of_payment, class: "w-40 h-auto max-w-md rounded-lg shadow-md", data: { testid: "product-payment-method-image" } %>
                     <% else %>
-                      <p class="text-red-500 text-sm">ยังไม่มีสลิปการชำระเงิน</p>
+                      <p class="text-red-500 text-sm" data: { testid: "product-payment-method-text" }>ยังไม่มีสลิปการชำระเงิน</p>
                     <% end %>
                   <% end %>
                 </div>
@@ -60,11 +60,12 @@
       </div>
     <% else %>
       <div class="text-center py-12">
-        <p class="text-gray-500">ยังไม่มีผู้ซื้อสินค้านี้</p>
+        <p class="text-gray-500" data: { testid: "product-no-customers-text" }>ยังไม่มีผู้ซื้อสินค้านี้</p>
       </div>
     <% end %>
     <div class="mt-4">
-        <%= link_to products_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+        <%= link_to products_path, class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500",
+        data: { testid: "product-back-to-products-link" } do %>
           กลับหน้าสินค้าตัวเอง
         <% end %>
     </div>

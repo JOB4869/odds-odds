@@ -4,35 +4,43 @@
     <% if @product.sold? %>
       <% if @product.user_id == Current.user.id %>
         <%= link_to root_path, class: "px-4 py-2 flex justify-center w-full" do %>
-          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm">กลับไปหน้าสินค้า</span>
+          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm",
+          data: { testid: "button-product-back-to-product-link" }>กลับไปหน้าสินค้า</span>
         <% end %>
         <%= link_to products_path, class: "px-4 py-2 flex justify-center w-full" do %>
-          <span class="bg-blue-200 hover:bg-blue-300 p-2 rounded-full inline-block text-sm">กลับไปหน้าสินค้าตัวเอง</span>
+          <span class="bg-blue-200 hover:bg-blue-300 p-2 rounded-full inline-block text-sm",
+          data: { testid: "button-product-back-to-products-link" }>กลับไปหน้าสินค้าตัวเอง</span>
         <% end %>
       <% else %>
         <%= link_to root_path, class: "px-4 py-2 flex justify-center w-full" do %>
-          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm">กลับไปหน้าสินค้า</span>
+          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm",
+          data: { testid: "button-product-back-to-product-link" }>กลับไปหน้าสินค้า</span>
         <% end %>
       <% end %>
     <% elsif @product.user_id == Current.user.id %>
       <%= link_to root_path, class: "px-4 py-2 flex justify-center w-full" do %>
-          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm">กลับไปหน้าสินค้า</span>
+          <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm",
+          data: { testid: "button-product-back-to-product-link" }>กลับไปหน้าสินค้า</span>
         <% end %>
       <%= link_to products_path, class: "px-4 py-2 flex justify-center w-full" do %>
-        <span class="bg-blue-200 hover:bg-blue-300 p-2 rounded-full inline-block text-sm">กลับไปหน้าสินค้าตัวเอง</span>
+        <span class="bg-blue-200 hover:bg-blue-300 p-2 rounded-full inline-block text-sm",
+        data: { testid: "button-product-back-to-products-link" }>กลับไปหน้าสินค้าตัวเอง</span>
       <% end %>
     <% else %>
       <%= link_to root_path, class: "px-4 py-2 flex justify-center" do %>
-        <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm">เลือกสินค้าต่อ</span>
+        <span class="bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm",
+        data: { testid: "button-product-back-to-product-link" }>เลือกสินค้าต่อ</span>
       <% end %>
 
       <%= link_to purchase_product_buy_nows_path(@product), class: "px-4 py-2 flex justify-center" do %>
-        <span class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full inline-block text-xl text-white">ซื้อเลย</span>
+        <span class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full inline-block text-xl text-white",
+        data: { testid: "button-product-purchase-button" }>ซื้อเลย</span>
       <% end %>
 
       <%= form_tag add_carts_path, method: :post, class: "px-4 py-2 flex justify-center" do %>
         <%= hidden_field_tag :product_id, @product.id %>
-        <%= button_tag type: 'submit', class: "bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm" do %>
+        <%= button_tag type: 'submit', class: "bg-gray-200 hover:bg-gray-300 p-2 rounded-full inline-block text-sm",
+        data: { testid: "button-product-add-to-cart-button" } do %>
           เพิ่มลงในตะกร้า
         <% end %>
       <% end %>
