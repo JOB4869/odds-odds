@@ -7,6 +7,9 @@ class BuyNow < ApplicationRecord
   enum :address_method, { current_address: 0, tipco_address: 1 }
   enum :payment_method, { promptpay: 0, cash_on_delivery: 1 }
 
+  validates :amount, presence: true, numericality: { greater_than: 0 }
+  validates :original_amount, presence: true, on: :update
+
   before_create :set_original_amount
   after_update :update_beer_balance, if: :completed?
   after_create :mark_as_completed

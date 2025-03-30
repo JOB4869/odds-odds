@@ -18,10 +18,7 @@
                   <%= image_tag buy_now.product.images.first, class: "w-full h-full object-cover rounded-lg shadow-md" %>
                 </div>
               <% end %>
-            <p class="mt-1 pl-4 text-base">จำนวน: 1</p>
-            <% if buy_now.product %>
-              <p class="mt-1 pl-4 text-base">ราคา: <%= number_to_currency(buy_now.product.price, unit: "", precision: 0) %> บาท</p>
-            <% end %>
+            <p class="mt-1 pl-4 text-base">จำนวนที่ซื้อ: <%= buy_now.original_amount || buy_now.amount %></p>
 
             </div>
           </div>
@@ -38,6 +35,9 @@
                       <p class="text-red-500 text-sm">ยังไม่มีสลิปการชำระเงิน</p>
                     <% end %>
                   <% end %></p>
+            <% if buy_now.product %>
+              <p class="mt-1 pl-4 text-base">ราคา: <%= number_to_currency(buy_now.product.price, unit: "", precision: 0) %> บาท</p>
+            <% end %>
           </div>
 
           <% if buy_now.completed? && buy_now.proof_of_payment.attached? %>
