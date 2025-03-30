@@ -13,10 +13,10 @@ class CartsController < ApplicationController
   def add
     begin
       @cart.add_product(@product.id)
-      redirect_to product_path(@product), notice: "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว",
+      redirect_to root_path, notice: "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว",
       data: { testid: "cart-add-product-success-notice" }
     rescue => e
-      redirect_to product_path(@product), alert: e.message,
+      redirect_to root_path, alert: e.message,
       data: { testid: "cart-add-product-error-notice" }
     end
   end
