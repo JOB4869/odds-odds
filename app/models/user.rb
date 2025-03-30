@@ -3,40 +3,42 @@ class User < ApplicationRecord
   has_many :products
   has_one_attached :qr_code
 
-  validates :beer_balance, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
-
-  def drink_beer
-    return false if beer_balance <= 0
-
-    decrement!(:beer_balance)
-  end
-
   has_secure_password
 
   validates :email,
             presence: { message: "กรุณากรอกอีเมล" },
             uniqueness: { message: "อีเมลนี้ถูกใช้งานแล้ว" },
-            format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "รูปแบบอีเมลไม่ถูกต้อง" },
+            format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "รูปแบบอีเมลไม่ถูกต้อง" }
+
+  validates :password,
+            presence: { message: "กรุณากรอกรหัสผ่าน" },
+            length: { minimum: 8, maximum: 16, message: "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร" },
+            format: {
+              with: /\A(?=.*[a-zA-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~]{8,16}\z/,
+              message: "รหัสผ่านต้องประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ"
+            },
             on: :create
 
-  validates :password,
-            presence: { message: "กรุณากรอกรหัสผ่าน" },
-            length: { minimum: 8, maximum: 16, message: "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร" },
-            format: {
-              with: /\A(?=.*[a-zA-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~]{8,16}\z/,
-              message: "รหัสผ่านต้องประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ"
-            },
-            on: [ :create, :password_reset ]
+  validates :beer_balance, numericality: { greater_than_or_equal_to: 0, message: "ต้องมากกว่าหรือเท่ากับ 0" }
 
-  validates :password,
-            presence: { message: "กรุณากรอกรหัสผ่าน" },
-            length: { minimum: 8, maximum: 16, message: "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร" },
-            format: {
-              with: /\A(?=.*[a-zA-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~]{8,16}\z/,
-              message: "รหัสผ่านต้องประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ"
-            },
-            if: :will_save_change_to_password_digest?,
-            on: :update
+  def deposit(amount)
+    return false if amount <= 0
+    increment!(:beer_balance, amount)
+  end
+
+  def withdraw(amount)
+    return false if amount <= 0 || amount > beer_balance
+    decrement!(:beer_balance, amount)
+  end
+
+  def drink_beer
+    if beer_balance > 0
+      update(beer_balance: beer_balance - 1)
+      true
+    else
+      false
+    end
+  end
 
   # Validation สำหรับข้อมูลส่วนตัว (validate เฉพาะตอน update)
   validates :first_name,

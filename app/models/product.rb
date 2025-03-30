@@ -3,6 +3,10 @@ class Product < ApplicationRecord
   has_many_attached :images
   has_many :buy_nows
 
+  validates :name, presence: { message: "กรุณากรอกชื่อสินค้า" }
+  validates :price, presence: { message: "กรุณากรอกราคา" }
+  validates :price, numericality: { greater_than_or_equal_to: 0, message: "ต้องมากกว่าหรือเท่ากับ 0" }
+
   def sold?
     self.sold == true || buy_nows.where(status: :completed).exists?
   end

@@ -1,5 +1,8 @@
 class Cart < ApplicationRecord
   belongs_to :user
+  has_many :cart_items, dependent: :destroy
+
+  validates :user, presence: true
 
   before_save :set_default_items
 
@@ -40,6 +43,16 @@ class Cart < ApplicationRecord
 
   def total_price
     items.sum { |item| item["price"].to_f }
+  end
+
+  def total
+    cart_items.sum { |item| item.product.price * item.quantity }
+  end
+
+  def add_item(product, quantity)
+    cart_item = cart_items.find_or_initialize_by(product: product)
+    cart_item.quantity = (cart_item.quantity || 0) + quantity
+    cart_item.save
   end
 
   private
