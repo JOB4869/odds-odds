@@ -1,6 +1,7 @@
 class BuyNow < ApplicationRecord
   belongs_to :user
   belongs_to :product
+  has_one_attached :proof_of_payment
 
   validates :user, presence: true
   validates :product, presence: true

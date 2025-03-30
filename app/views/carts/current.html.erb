@@ -2,16 +2,12 @@
   <div class="w-full">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-semibold" data-testid="cart-show-title">ตะกร้าสินค้า</h1>
-    
-
-    <% if @cart.items.any? %>
-        <%= button_to clear_carts_path, method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะล้างตะกร้า?" } },
-        data: { testid: "cart-show-clear-cart-button" } do %>
+      <% if @cart.items.any? %>
+        <%= button_to clear_carts_path, method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะล้างตะกร้า?" } }, data: { testid: "cart-show-clear-cart-button" } do %>
           ล้างตะกร้า
         <% end %>
-    <% end %>
+      <% end %>
     </div>
-    
 
     <% if @cart.items.any? %>
       <div class="space-y-4">
@@ -27,8 +23,7 @@
                 <p class="text-red-600 mt-1" data-testid="cart-show-item-sold-out-text">⚠️ สินค้านี้ถูกขายไปแล้ว</p>
               <% end %>
             </div>
-            <%= button_to remove_item_carts_path, method: :delete, params: { product_id: item["product_id"] }, class: "px-2 py-1 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg text-sm", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะลบสินค้านี้ออกจากตะกร้า?" } },
-            data: { testid: "cart-show-remove-item-button" } do %>
+            <%= button_to remove_item_carts_path, method: :delete, params: { product_id: item["product_id"] }, class: "px-2 py-1 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg text-sm", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ที่จะลบสินค้านี้ออกจากตะกร้า?" } }, data: { testid: "cart-show-remove-item-button" } do %>
               ลบ
             <% end %>
           </div>
@@ -46,20 +41,17 @@
         <%= link_to root_path, class: "px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg", data: { testid: "cart-show-continue-shopping-link" } do %>
           เลือกสินค้าต่อ
         <% end %>
-
-        <%= link_to purchase_all_carts_path,
-            class: "px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg", data: { testid: "cart-show-purchase-all-link" } do %>
-            ซื้อทั้งหมด
-          <% end %>
+        <%= link_to purchase_all_carts_path, class: "px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg", data: { testid: "cart-show-purchase-all-link" } do %>
+          ซื้อทั้งหมด
+        <% end %>
       </div>
     <% else %>
       <div class="text-center py-8">
         <p class="text-gray-600" data-testid="cart-show-empty-cart-text">ตะกร้าว่างเปล่า</p>
-        <%= link_to root_path, class: "mt-4 inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg",
-        data: { testid: "cart-show-continue-shopping-link" } do %>
+        <%= link_to root_path, class: "mt-4 inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg", data: { testid: "cart-show-continue-shopping-link" } do %>
           เลือกสินค้า
         <% end %>
       </div>
     <% end %>
   </div>
-</div>
+</div> 

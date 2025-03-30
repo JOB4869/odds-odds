@@ -26,7 +26,7 @@
   </div>
 
   <div class="mb-6 flex justify-center">
-    <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment" data: { testid: "buy-now-new-qr-code-odds" } %>
+    <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment", data: { testid: "buy-now-new-qr-code-odds" } %>
   </div>
 
   <%= form_with(model: @buy_now, local: true, class: "w-full") do |f| %>
@@ -53,7 +53,8 @@
       <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg ">
         <div class="w-full flex justify-between items-start px-8 py-2">
     <%= f.submit "ยืนยัน", 
-        class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg" data: { testid: "buy-now-new-submit-button" } %>
+        class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg",
+        data: { testid: "buy-now-new-submit-button" } %>
         </div>
     <% end %>
       </div>
@@ -61,7 +62,7 @@
 
     <div class="flex flex-col items-center w-full max-w-md mx-auto rounded-lg ">
       <div class="w-full flex justify-between items-start px-8 py-2">
-        <%= link_to beers_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-gray-50 hover:bg-gray-100 " do %>
+        <%= link_to beers_path, class: "w-full flex justify-center py-2 px-4 rounded-md text-base font-medium bg-gray-50 hover:bg-gray-100" do %>
           <span class="text-black" data: { testid: "buy-now-new-back-button" }>ย้อนกลับ</span>
         <% end %>
       </div>

@@ -3,7 +3,10 @@ class BeersController < ApplicationController
 
   def index
     @user = Current.user
-    @product = Product.first
+    @product = Product.find_or_create_by(name: "เบียร์ ODDS") do |product|
+      product.price = 33.3333333333
+    end
+
     if @user
       @buy_nows = @user.buy_nows.order(created_at: :desc).limit(5)
       @total_beers = @user.buy_nows.completed.where(product_id: nil).sum(:amount)
@@ -24,5 +27,16 @@ class BeersController < ApplicationController
       redirect_to beers_path, alert: "คุณไม่มีเบียร์ในคลัง", status: :see_other,
       data: { testid: "check-out-beer-error-notice" }
     end
+  end
+
+  def buy_beer
+    @user = Current.user
+    amount = params[:amount].to_i
+    @product = Product.find_or_create_by(name: "เบียร์ ODDS") do |product|
+      product.price = 33.3333333333
+    end
+
+    redirect_to new_buy_now_path(amount: amount, product_id: @product.id), notice: "กรุณาชำระเงิน",
+    data: { testid: "buy-beer-success-notice" }
   end
 end
