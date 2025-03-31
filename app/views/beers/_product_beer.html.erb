@@ -1,7 +1,7 @@
 <% if @user %>
   <div class="bg-white rounded-lg p-4">
     <div class="flex justify-between items-center text-xl">
-      <div>เบียร์ทั้งหมด: <span class="font-semibold text-blue-600 " data: { testid: "product-beer-total-beers" }><%= @user.beer_balance %></span> แก้ว</div>
+      <div>เบียร์ทั้งหมด: <span class="font-semibold text-blue-600 " data: { testid: "product-beer-total-beers" }><%= @total_beers %></span> แก้ว</div>
       <%= link_to check_out_beer_path, class: "py-2 flex items-center p-3 bg-red-50 rounded-md hover:bg-red-100 transition-colors", data: { testid: "product-beer-check-out-button", turbo_frame: "modal" } do %>
         <span>กดเติม 🍺 เลยครับ</span>
       <% end %>
@@ -11,21 +11,21 @@
 
   <div class="flex justify-between gap-8 mb-8">
     <div class="bg-white rounded-lg shadow-md", data: { testid: "product-beer-3-beers-link" }>
-      <%= link_to new_buy_now_path(amount: 3, product_id: @product.id), class: "block" do %>
+      <%= link_to new_buy_now_path(amount: 3), class: "block" do %>
       <%= image_tag "3gp.png", alt: "3 แก้ว", class: "w-full object-cover rounded-lg mb-4" %>
       <div class="text-center">
         <div class="text-xl font-semibold mb-1">3 แก้ว</div>
-        <div class="text-lg">99 บาท</div>
+        <div class="text-lg">100 บาท</div>
       </div>
       <% end %>
     </div>
 
     <div class="bg-white rounded-lg shadow-md", data: { testid: "product-beer-6-beers-link" }>
-      <%= link_to new_buy_now_path(amount: 6, product_id: @product.id), class: "block" do %>
+      <%= link_to new_buy_now_path(amount: 6), class: "block" do %>
       <%= image_tag "6gp.png", alt: "6 แก้ว", class: "w-full object-cover rounded-lg mb-4" %>
       <div class="text-center">
         <div class="text-xl font-semibold mb-1">6 แก้ว</div>
-        <div class="text-lg">198 บาท</div>
+        <div class="text-lg">200 บาท</div>
       </div>
       <% end %>
     </div>
@@ -33,21 +33,21 @@
 
   <div class="flex justify-center gap-8 mb-8">
     <div class="bg-white rounded-lg shadow-md", data: { testid: "product-beer-9-beers-link" }>
-      <%= link_to new_buy_now_path(amount: 9, product_id: @product.id), class: "block" do %>
+      <%= link_to new_buy_now_path(amount: 9), class: "block" do %>
       <%= image_tag "9gp.png", alt: "9 แก้ว", class: "w-full object-cover rounded-lg mb-4" %>
       <div class="text-center">
         <div class="text-xl font-semibold mb-1">9 แก้ว</div>
-        <div class="text-lg">297 บาท</div>
+        <div class="text-lg">300 บาท</div>
       </div>
       <% end %>
     </div>
 
     <div class="bg-white rounded-lg shadow-md", data: { testid: "product-beer-12-beers-link" }>
-      <%= link_to new_buy_now_path(amount: 12, product_id: @product.id), class: "block" do %>
+      <%= link_to new_buy_now_path(amount: 12), class: "block" do %>
       <%= image_tag "12gp.png", alt: "12 แก้ว", class: "w-full object-cover rounded-lg mb-4" %>
       <div class="text-center">
         <div class="text-xl font-semibold mb-1">12 แก้ว</div>
-        <div class="text-lg">396 บาท</div>
+        <div class="text-lg">400 บาท</div>
       </div>
       <% end %>
     </div>
