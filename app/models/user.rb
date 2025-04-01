@@ -53,7 +53,7 @@ class User < ApplicationRecord
   validates :phone,
             presence: { message: "กรุณาเบอร์โทรศัพท์" },
             length: { minimum: 10, maximum: 10 },
-            format: { with: /\d{10}/, message: "เบอร์โทรศัพท์ 10 หลัก" },
+            format: { with: /\A\d{10}\z/, message: "เบอร์โทรศัพท์ 10 หลัก" },
             on: :update
 
   validates :prompt_pay,

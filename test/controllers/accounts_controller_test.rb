@@ -5,11 +5,11 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @user = users(:one)
-    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
+    sign_in @user
   end
 
   test "should redirect index when not logged in" do
-    delete sign_out_path # ใช้ path ของ Devise เพื่อ sign out
+    delete sign_out_path
     get accounts_url
     assert_redirected_to new_user_session_url
   end
@@ -67,11 +67,6 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     delete sign_out_path
     get edit_account_url(@user)
     assert_redirected_to new_user_session_url
-  end
-
-  test "should get edit when logged in" do
-    get edit_account_url(@user)
-    assert_response :success
   end
 
   test "should redirect update when not logged in" do

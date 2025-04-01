@@ -20,7 +20,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index when logged in" do
-    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
+    integration_sign_in @user
     get root_url
     assert_response :success
     assert_equal @user, assigns(:user)
