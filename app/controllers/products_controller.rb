@@ -3,34 +3,28 @@ class ProductsController < ApplicationController
   before_action :validate_user_profile
   before_action :set_product, only: %i[ show edit update destroy ]
 
-  # GET /products or /products.json
   def index
     @products = Current.user.products.order(created_at: :desc)
   end
 
-  # GET /products/1 or /products/1.json
   def show
   end
 
-  # GET /products/new
   def new
     @product = Current.user.products.build
   end
 
-  # GET /products/1/edit
   def edit
     unless @product.user_id == Current.user.id
       redirect_to products_path, alert: "คุณไม่มีสิทธิ์แก้ไขสินค้านี้"
     end
   end
 
-  # GET /products/:id/customers
   def customers
     @product = Current.user.products.find(params[:id])
     @buy_nows = @product.buy_nows.includes(:user).order(created_at: :desc)
   end
 
-  # POST /products or /products.json
   def create
     @product = Current.user.products.build(product_params)
 
@@ -46,7 +40,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1 or /products/1.json
   def update
     unless @product.user_id == Current.user.id
       redirect_to products_path, alert: "คุณไม่มีสิทธิ์แก้ไขสินค้านี้"
@@ -65,7 +58,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
   def destroy
     unless @product.user_id == Current.user.id
       redirect_to products_path, alert: "คุณไม่มีสิทธิ์ลบสินค้านี้"

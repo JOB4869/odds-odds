@@ -13,9 +13,19 @@ class Product < ApplicationRecord
   end
 
   def remaining_amount
-    return Float::INFINITY if name == "เบียร์ ODDS"
+    Rails.logger.info "Calculating remaining_amount for Product ID: #{id}"
+    if name == "เบียร์ ODDS"
+      Rails.logger.info "Product is เบียร์ ODDS, returning Infinity"
+      return Float::INFINITY
+    end
     initial_amount = self.amount || 1
-    sold_amount = buy_nows.where(status: :completed).sum(:amount)
-    initial_amount - sold_amount
+    Rails.logger.info "Initial amount: #{initial_amount}"
+    # โหลด completed buy_nows มาเก็บในตัวแปร เพื่อดู count และ sum
+    completed_buy_nows = buy_nows.where(status: :completed)
+    sold_amount = completed_buy_nows.sum(:amount)
+    Rails.logger.info "Completed BuyNows count: #{completed_buy_nows.count}, Sold amount sum: #{sold_amount}"
+    result = initial_amount - sold_amount
+    Rails.logger.info "Calculated remaining amount: #{result}"
+    result
   end
 end

@@ -84,24 +84,30 @@ class CartsController < ApplicationController
     products = Product.where(id: product_ids)
     Rails.logger.info "Found products: #{products.map(&:id)}"
 
-    sold_products = products.select(&:sold?)
-    Rails.logger.info "Sold products: #{sold_products.map(&:id)}"
+    out_of_stock_products = products.select { |p| p.remaining_amount <= 0 }
+    Rails.logger.info "Out of stock products: #{out_of_stock_products.map(&:id)}"
 
-    if sold_products.any?
-      redirect_to current_carts_path, alert: "มีสินค้าบางรายการถูกขายไปแล้ว กรุณาตรวจสอบและลองใหม่อีกครั้ง",
+    if out_of_stock_products.any?
+      product_names = out_of_stock_products.map(&:name).join(", ")
+      redirect_to current_carts_path, alert: "สินค้าหมดสต็อก: #{product_names}. กรุณาตรวจสอบและลองใหม่อีกครั้ง",
       data: { testid: "cart-purchase-all-error-notice" }
       return
     end
 
     ActiveRecord::Base.transaction do
       products.each do |product|
+        if product.reload.remaining_amount <= 0
+           raise ActiveRecord::RecordInvalid.new(product), "สินค้า #{product.name} หมดสต็อกแล้ว"
+        end
+
         Rails.logger.info "Processing product: #{product.id}"
 
         buy_now = product.buy_nows.new(
           user: Current.user,
           address_method: address_method,
           payment_method: payment_method,
-          amount: 1
+          amount: 1,
+          status: :completed
         )
 
         if params[:buy_now][:proof_of_payment].present?
@@ -109,10 +115,8 @@ class CartsController < ApplicationController
         end
 
         buy_now.save!
-        Rails.logger.info "BuyNow saved for product: #{product.id}"
-
-        product.update!(sold: true)
-        Rails.logger.info "Product #{product.id} marked as sold"
+        Rails.logger.info "BuyNow saved for product: #{product.id} with status: #{buy_now.status}"
+        Rails.logger.info "Remaining amount for product #{product.id} after save: #{product.reload.remaining_amount}"
       end
 
       remaining_items = @cart.items.reject { |item| product_ids.include?(item["product_id"].to_s) }
