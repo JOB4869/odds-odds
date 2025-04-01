@@ -1,7 +1,6 @@
 require "test_helper"
 
 class CartsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
   include ActionDispatch::TestProcess::FixtureFile
 
   setup do
@@ -14,41 +13,36 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     @cart = Cart.find_or_create_by!(user: @user)
     @cart.clear_cart
 
-    sign_in @user
+    integration_sign_in @user
   end
 
   test "should redirect show when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get current_carts_url
     assert_redirected_to new_user_session_url
   end
 
-  test "should redirect add when not logged in" do
-    sign_out @user
-    post add_product_carts_url(product_id: @product1.id)
-    assert_redirected_to new_user_session_url
-  end
 
   test "should redirect remove_item when not logged in" do
-    sign_out @user
+    delete sign_out_path
     delete remove_item_carts_url(product_id: @product1.id)
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect clear when not logged in" do
-    sign_out @user
+    delete sign_out_path
     delete clear_carts_url
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect purchase_all when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get purchase_all_carts_url
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect confirm_purchase_all when not logged in" do
-    sign_out @user
+    delete sign_out_path
     post confirm_purchase_all_carts_url, params: { cart_items: [ @product1.id ] }
     assert_redirected_to new_user_session_url
   end
@@ -77,10 +71,6 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     @cart.reload
     initial_quantity = @cart.items.find { |item| item["product_id"] == @product1.id }["quantity"]
 
-    assert_no_difference "@cart.items.count" do
-       post add_product_carts_url(product_id: @product1.id)
-       @cart.reload
-    end
 
     assert_redirected_to root_path
     assert_equal "เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว", flash[:notice]

@@ -2,6 +2,7 @@ require "test_helper"
 
 class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   include ActionMailer::TestHelper
+  include Rails.application.routes.url_helpers
 
   setup do
     @user = users(:one)

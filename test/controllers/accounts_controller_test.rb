@@ -1,15 +1,15 @@
 require "test_helper"
 
 class AccountsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # include Devise::Test::IntegrationHelpers # ลบออก
 
   setup do
     @user = users(:one)
-    sign_in @user
+    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
   end
 
   test "should redirect index when not logged in" do
-    sign_out @user
+    delete sign_out_path # ใช้ path ของ Devise เพื่อ sign out
     get accounts_url
     assert_redirected_to new_user_session_url
   end
@@ -20,7 +20,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect show when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get account_url(@user)
     assert_redirected_to new_user_session_url
   end
@@ -31,7 +31,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect new when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get new_account_url
     assert_redirected_to new_user_session_url
   end
@@ -42,7 +42,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect create when not logged in" do
-    sign_out @user
+    delete sign_out_path
     post accounts_url, params: { user: { email: "new@example.com", password: "password", password_confirmation: "password" } }
     assert_redirected_to new_user_session_url
   end
@@ -64,7 +64,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect edit when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get edit_account_url(@user)
     assert_redirected_to new_user_session_url
   end
@@ -75,7 +75,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect update when not logged in" do
-    sign_out @user
+    delete sign_out_path
     patch account_url(@user), params: { user: { first_name: "Updated Name" } }
     assert_redirected_to new_user_session_url
   end

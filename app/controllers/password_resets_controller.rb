@@ -30,6 +30,9 @@ class PasswordResetsController < ApplicationController
       flash.now[:alert] = "รหัสผ่านไม่ถูกต้อง"
       render :edit, status: :unprocessable_entity
     end
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    redirect_to sign_in_path, alert: "ลิงก์รีเซ็ตรหัสผ่านหมดอายุแล้ว กรุณาขอลิงก์ใหม่",
+    data: { testid: "password-reset-update-error-notice" }
   end
 
   private

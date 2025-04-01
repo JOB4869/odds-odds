@@ -1,9 +1,10 @@
 require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # include Devise::Test::IntegrationHelpers # ลบออก
 
   setup do
+    Product.destroy_all
     @user = users(:one)
     @product1 = Product.create!(name: "Product A", price: 10)
     @product2 = Product.create!(name: "Product B", price: 20)
@@ -19,7 +20,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index when logged in" do
-    sign_in @user
+    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
     get root_url
     assert_response :success
     assert_equal @user, assigns(:user)

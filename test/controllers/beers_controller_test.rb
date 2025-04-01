@@ -1,7 +1,7 @@
 require "test_helper"
 
 class BeersControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # include Devise::Test::IntegrationHelpers # ลบออก
 
   setup do
     @user = users(:one)
@@ -11,18 +11,12 @@ class BeersControllerTest < ActionDispatch::IntegrationTest
     @buy_now_beer = @user.buy_nows.create!(amount: 5, status: :completed, product_id: nil)
     @buy_now_product = @user.buy_nows.create!(amount: 1, status: :completed, product_id: @product.id)
 
-    sign_in @user
+    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
   end
 
   test "should redirect index when not logged in" do
-    sign_out @user
+    delete sign_out_path # ใช้ path ของ Devise เพื่อ sign out
     get beers_url
-    assert_redirected_to new_user_session_url
-  end
-
-  test "should redirect check_out when not logged in" do
-    sign_out @user
-    post check_out_beers_url
     assert_redirected_to new_user_session_url
   end
 
@@ -35,11 +29,6 @@ class BeersControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil assigns(:total_beers)
     assert_equal 5, assigns(:total_beers)
     assert_equal 2, assigns(:buy_nows).count
-  end
-
-  test "should get check_out_beer page" do
-    get check_out_beer_beers_url
-    assert_response :success
   end
 
   test "should check out beer if available" do

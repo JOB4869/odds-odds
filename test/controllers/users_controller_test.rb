@@ -1,23 +1,23 @@
 require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+  # include Devise::Test::IntegrationHelpers # ลบออก
 
   setup do
     @user = users(:one)
-    sign_in
+    integration_sign_in @user # เปลี่ยนเป็น integration_sign_in
 
     @user.buy_nows.where(product_id: nil).destroy_all
   end
 
   test "should redirect index when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get users_url
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect drink when not logged in" do
-    sign_out @user
+    delete sign_out_path
     post drink_users_url
     assert_redirected_to new_user_session_url
   end

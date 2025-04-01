@@ -1,31 +1,32 @@
 require "test_helper"
 
 class BuyNowsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
   include ActionDispatch::TestProcess::FixtureFile
 
   setup do
     @user = users(:one)
     @product = products(:one)
-    @buy_now = buy_nows(:one)
-    sign_in @user
+    @buy_now = BuyNow.create!(user: @user, product: @product, amount: 1, status: :pending)
+    integration_sign_in @user
   end
 
   test "should redirect index when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get buy_nows_url
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect new when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get new_buy_now_url
     assert_redirected_to new_user_session_url
   end
 
   test "should redirect create when not logged in" do
-    sign_out @user
-    post buy_nows_url, params: { buy_now: { amount: 100 } }
+    delete sign_out_path
+    assert_no_difference("BuyNow.count") do
+      post buy_nows_url, params: { buy_now: { product_id: @product.id, amount: 1, address_method: "current_address", payment_method: "promptpay" } }
+    end
     assert_redirected_to new_user_session_url
   end
 
@@ -83,13 +84,13 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect purchase when not logged in" do
-    sign_out @user
-    get purchase_product_buy_nows_url(@product)
+    delete sign_out_path
+    get purchase_buy_now_url(@product)
     assert_redirected_to new_user_session_url
   end
 
   test "should get purchase" do
-    get purchase_product_buy_nows_url(@product)
+    get purchase_buy_now_url(@product)
     assert_response :success
     assert_not_nil assigns(:buy_now)
     assert_not_nil assigns(:user)
@@ -98,14 +99,14 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect confirm_purchase when not logged in" do
-    sign_out @user
-    post confirm_purchase_product_buy_nows_url(@product), params: { buy_now: { payment_method: "cash" } }
+    delete sign_out_path
+    post confirm_purchase_buy_now_url(@product), params: { buy_now: { address_method: "current_address", payment_method: "promptpay", amount: 1 } }
     assert_redirected_to new_user_session_url
   end
 
   test "should confirm purchase with valid params (cash)" do
     assert_difference("@user.buy_nows.count", 1) do
-      post confirm_purchase_product_buy_nows_url(@product), params: {
+      post confirm_purchase_buy_now_url(@product), params: {
         buy_now: {
           payment_method: "cash",
           address_method: "pickup"
@@ -125,7 +126,7 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
   test "should confirm purchase with valid params (promptpay with proof)" do
     proof_file = fixture_file_upload("files/slip.png", "image/png")
     assert_difference("@user.buy_nows.count", 1) do
-      post confirm_purchase_product_buy_nows_url(@product), params: {
+      post confirm_purchase_buy_now_url(@product), params: {
         buy_now: {
           payment_method: "promptpay",
           address_method: "delivery",
@@ -145,7 +146,7 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not confirm purchase if address_method is missing" do
     assert_no_difference("@user.buy_nows.count") do
-      post confirm_purchase_product_buy_nows_url(@product), params: {
+      post confirm_purchase_buy_now_url(@product), params: {
         buy_now: { payment_method: "cash" }
       }
     end
@@ -156,7 +157,7 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not confirm purchase if payment_method is promptpay and proof is missing" do
     assert_no_difference("@user.buy_nows.count") do
-      post confirm_purchase_product_buy_nows_url(@product), params: {
+      post confirm_purchase_buy_now_url(@product), params: {
         buy_now: { payment_method: "promptpay", address_method: "pickup" }
       }
     end
@@ -165,9 +166,8 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "กรุณาอัพโหลดหลักฐานการชำระเงิน", flash.now[:alert]
   end
 
-
   test "should redirect show when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get buy_now_url(@buy_now)
     assert_redirected_to new_user_session_url
   end
@@ -181,7 +181,7 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect qr_code when not logged in" do
-    sign_out @user
+    delete sign_out_path
     get qr_code_buy_now_url(@buy_now)
     assert_redirected_to new_user_session_url
   end
@@ -193,8 +193,8 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect confirm_payment when not logged in" do
-    sign_out @user
-    patch confirm_payment_buy_now_url(@buy_now), params: { proof_of_payment: fixture_file_upload("files/slip.png", "image/png") }
+    delete sign_out_path
+    patch confirm_payment_buy_now_url(@buy_now)
     assert_redirected_to new_user_session_url
   end
 

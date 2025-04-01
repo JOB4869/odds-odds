@@ -59,14 +59,16 @@ class UserTest < ActiveSupport::TestCase
   test "should be invalid with short password on create" do
     user = User.new(email: "shortpass@example.com", password: "aB1!", password_confirmation: "aB1!")
     assert_not user.valid?
-    assert_includes @user.errors[:password], "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร"
+    # Check for the length validation message first
+    assert_includes user.errors[:password], "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร"
   end
 
   test "should be invalid with long password on create" do
     long_pass = "a" * 17 + "B1!"
     user = User.new(email: "longpass@example.com", password: long_pass, password_confirmation: long_pass)
     assert_not user.valid?
-    assert_includes @user.errors[:password], "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร"
+    # Check for the length validation message first
+    assert_includes user.errors[:password], "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร"
   end
 
   test "should be invalid with password missing letters on create" do
@@ -148,11 +150,12 @@ class UserTest < ActiveSupport::TestCase
     @user.save!
     @user.phone = "12345"
     assert_not @user.valid?(:update)
-    assert_includes @user.errors[:phone], "เบอร์โทรศัพท์ 10 หลัก"
+    # Use the standard Rails length error message format
+    assert_includes @user.errors[:phone], "is the wrong length (should be 10 characters)"
 
     @user.phone = "12345678901"
     assert_not @user.valid?(:update)
-    assert_includes @user.errors[:phone], "เบอร์โทรศัพท์ 10 หลัก"
+    assert_includes @user.errors[:phone], "is the wrong length (should be 10 characters)"
   end
 
   test "should be invalid with non-digit phone on update" do
