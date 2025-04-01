@@ -23,10 +23,11 @@ class PasswordResetsController < ApplicationController
 
   def update
     @user = User.find_signed!(params[:token], purpose: "password_reset")
-    if @user.update(password_params)
+    if valid_password? && @user.update(password_params)
       redirect_to sign_in_path, notice: "รีเซ็ตรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่",
       data: { testid: "password-reset-update-success-notice" }
     else
+      flash.now[:alert] = "รหัสผ่านไม่ถูกต้อง"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -35,5 +36,14 @@ class PasswordResetsController < ApplicationController
 
   def password_params
     params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def valid_password?
+    password = params[:user][:password]
+    unless password.match?(/\A(?=.*[a-zA-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~]{8,16}\z/)
+      Current.user.errors.add(:password, "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร และประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ")
+      return false
+    end
+    true
   end
 end

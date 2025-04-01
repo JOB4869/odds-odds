@@ -40,7 +40,6 @@ class User < ApplicationRecord
     end
   end
 
-  # Validation สำหรับข้อมูลส่วนตัว (validate เฉพาะตอน update)
   validates :first_name,
             presence: { message: "กรุณากรอกชื่อ" },
             format: { with: /\A[ก-ฮ\u0E30-\u0E3A\u0E40-\u0E4E a-zA-Z]+\z/, message: "กรุณากรอกเฉพาะตัวอักษรไทยหรืออังกฤษ" },
