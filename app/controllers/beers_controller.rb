@@ -30,7 +30,7 @@ class BeersController < ApplicationController
       redirect_to beers_path, notice: "ดื่มเบียร์สำเร็จ! เครดิตคงเหลือ #{ @user.buy_nows.completed.where(product_id: nil).sum(:amount) } แก้ว", status: :see_other,
       data: { testid: "check-out-beer-success-notice" }
     else
-      redirect_to beers_path, alert: "คุณไม่มีเบียร์ในคลัง", status: :see_other,
+      redirect_to beers_path, alert: "คุณไม่มีเครติดเบียร์คงเหลือ", status: :see_other,
       data: { testid: "check-out-beer-error-notice" }
     end
   rescue ActiveRecord::RecordInvalid => e
