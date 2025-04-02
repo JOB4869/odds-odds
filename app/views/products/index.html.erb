@@ -18,10 +18,15 @@
                 <div class="bg-white rounded-lg shadow-md">
                   <%= render product %>
                   <div class="p-2 flex justify-center space-x-2">
-                    <%= link_to "แก้ไข", edit_product_path(product), class: "px-3 py-2 bg-gray-100 hover:bg-gray-50 rounded-md text-sm font-medium",
-                    data: { testid: "product-index-edit-product-link" } %>
-                    <%= button_to "ลบ", product, method: :delete, class: "px-3 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md text-sm font-medium", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ว่าต้องการลบสินค้านี้?" } },
-                    data: { testid: "product-index-delete-product-button" } %>
+                    <% if product.sold? %>
+                      <button disabled class="px-3 py-2 bg-gray-100 text-gray-400 rounded-md text-sm font-medium cursor-not-allowed">แก้ไข</button>
+                      <button disabled class="px-3 py-2 bg-gray-400 text-white rounded-md text-sm font-medium cursor-not-allowed">ลบ</button>
+                    <% else %>
+                      <%= link_to "แก้ไข", edit_product_path(product), class: "px-3 py-2 bg-gray-100 hover:bg-gray-50 rounded-md text-sm font-medium",
+                      data: { testid: "product-index-edit-product-link" } %>
+                      <%= button_to "ลบ", product, method: :delete, class: "px-3 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md text-sm font-medium", form: { data: { turbo_confirm: "คุณแน่ใจหรือไม่ว่าต้องการลบสินค้านี้?" } },
+                      data: { testid: "product-index-delete-product-button" } %>
+                    <% end %>
                   </div>
                   <div class="p-2 flex justify-center space-x-2">
                     <%= link_to "ดูรายการผู้ซื้อ", customers_product_path(product), class: "px-3 py-2 bg-blue-200 hover:bg-blue-100 rounded-md text-sm font-medium justify-center",

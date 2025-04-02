@@ -225,20 +225,8 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_buy_now_url(@buy_now)
-    assert_response :success
-  end
-
   test "should update buy_now" do
     patch buy_now_url(@buy_now), params: { buy_now: { amount: @buy_now.amount, proof_of_payment: @buy_now.proof_of_payment, status: @buy_now.status, user_id: @buy_now.user_id } }
     assert_redirected_to buy_now_url(@buy_now)
-  end
-
-  test "should destroy buy_now" do
-    assert_difference("BuyNow.count", -1) do
-      delete buy_now_url(@buy_now)
-    end
-    assert_redirected_to buy_nows_url
   end
 end

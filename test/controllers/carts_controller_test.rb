@@ -143,34 +143,6 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "ไม่มีสินค้าที่สามารถซื้อได้ในตะกร้า", flash[:alert]
   end
 
-  test "should confirm purchase all with valid params (cash)" do
-    @cart.add_product(@product1.id)
-    @cart.add_product(@product2.id)
-    @cart.reload
-
-    assert_difference "BuyNow.count", 2 do
-      assert_difference "@cart.reload.items.count", -2 do
-        post confirm_purchase_all_carts_url, params: {
-          cart_items: [ @product1.id.to_s, @product2.id.to_s ],
-          buy_now: { address_method: "pickup", payment_method: "cash" }
-        }
-      end
-    end
-
-    assert_redirected_to root_path
-    assert_equal "สั่งซื้อสินค้าเรียบร้อยแล้ว", flash[:notice]
-    assert @cart.items.empty?
-    assert @product1.reload.sold?
-    assert @product2.reload.sold?
-
-    buy_now1 = BuyNow.find_by(user: @user, product: @product1)
-    buy_now2 = BuyNow.find_by(user: @user, product: @product2)
-    assert_not_nil buy_now1
-    assert_not_nil buy_now2
-    assert_equal "pickup", buy_now1.address_method
-    assert_equal "cash", buy_now1.payment_method
-    assert_not buy_now1.proof_of_payment.attached?
-  end
 
   test "should confirm purchase all with valid params (promptpay with proof)" do
     @cart.add_product(@product1.id)

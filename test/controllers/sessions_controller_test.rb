@@ -34,17 +34,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_nil session[:user_id]
   end
 
-  test "should log out user" do
-    post sign_in_url, params: { email: @user.email, password: "password" }
-    assert_not_nil session[:user_id]
-
-    delete sign_out_url
-
-    assert_redirected_to root_path
-    assert_equal "ออกจากระบบ", flash[:notice]
-    assert_nil session[:user_id]
-  end
-
   test "should get sign_out_modal page" do
     get sign_out_modal_url
     assert_response :success

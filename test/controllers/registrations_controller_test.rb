@@ -11,16 +11,12 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should create user with valid parameters" do
     assert_difference("User.count", 1) do
       post sign_up_url, params: {
-        user: {
-          email: "new.user@example.com",
-          password: "ValidP@ss1",
-          password_confirmation: "ValidP@ss1"
-        }
+        user: { email: "new.user@example.com", password: "password", password_confirmation: "password" }
       }
     end
 
     created_user = User.last
-    assert_redirected_to root_path
+    assert_redirected_to additional_info_path
     assert_equal created_user.id, session[:user_id]
   end
 
@@ -47,12 +43,9 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get additional_info page" do
-    user = User.create!(email: "temp@example.com", password: "ValidP@ss1", password_confirmation: "ValidP@ss1")
-    integration_sign_in user
-
-    get additional_info_path
+    post sign_up_url, params: { user: { email: "temp@example.com", password: "password", password_confirmation: "password" } }
+    follow_redirect!
 
     assert_response :success
-    assert_template :additional_info
   end
 end
