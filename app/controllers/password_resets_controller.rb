@@ -44,7 +44,7 @@ class PasswordResetsController < ApplicationController
   def valid_password?
     password = params[:user][:password]
     unless password.match?(/\A(?=.*[a-zA-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-.\/:;<=>?@[\\]^_`{|}~]{8,16}\z/)
-      Current.user.errors.add(:password, "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร และประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ")
+      @user.errors.add(:password, "รหัสผ่านต้องมีความยาวระหว่าง 8-16 ตัวอักษร และประกอบด้วยตัวอักษร ตัวเลข และสัญลักษณ์พิเศษ")
       return false
     end
     true
