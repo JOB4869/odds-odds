@@ -48,7 +48,7 @@ class BuyNowsController < ApplicationController
     end
 
     if @buy_now.payment_method == "promptpay" && params[:buy_now][:proof_of_payment].blank?
-      flash.now[:alert] = "กรุณาอัพโหลดหลักฐานการชำระเงิน"
+      flash.now[:alert] = "กรุณาอัปโหลดหลักฐานการชำระเงิน"
       render :purchase, status: :unprocessable_entity
       return
     end

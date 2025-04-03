@@ -163,7 +163,7 @@ class BuyNowsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
     assert_template :purchase
-    assert_equal "กรุณาอัพโหลดหลักฐานการชำระเงิน", flash.now[:alert]
+    assert_equal "กรุณาอัปโหลดหลักฐานการชำระเงิน", flash.now[:alert]
   end
 
   test "should redirect show when not logged in" do

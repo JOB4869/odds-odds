@@ -78,7 +78,7 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   test "should update account with valid parameters" do
     patch account_url(@user), params: { user: { first_name: "Updated First Name", last_name: "Updated Last Name" } }
     assert_redirected_to accounts_path
-    assert_equal "อัพเดทข้อมูลสำเร็จ", flash[:notice]
+    assert_equal "อัปเดตข้อมูลสำเร็จ", flash[:notice]
     @user.reload
     assert_equal "Updated First Name", @user.first_name
     assert_equal "Updated Last Name", @user.last_name

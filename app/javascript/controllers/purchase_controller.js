@@ -48,7 +48,7 @@ export default class extends Controller {
     if (addressMethod.value === "current_address") {
       const proofOfPayment = this.currentAddressTarget.querySelector('input[name="buy_now[proof_of_payment]"]')
       if (!proofOfPayment.files[0]) {
-        alert("กรุณาอัพโหลดหลักฐานการชำระเงิน")
+        alert("กรุณาอัปโหลดหลักฐานการชำระเงิน")
         return
       }
     } else {
@@ -61,7 +61,7 @@ export default class extends Controller {
       if (paymentMethod.value === "promptpay") {
         const proofOfPayment = this.promptpayTarget.querySelector('input[name="buy_now[proof_of_payment]"]')
         if (!proofOfPayment.files[0]) {
-          alert("กรุณาอัพโหลดหลักฐานการชำระเงิน")
+          alert("กรุณาอัปโหลดหลักฐานการชำระเงิน")
           return
         }
       }

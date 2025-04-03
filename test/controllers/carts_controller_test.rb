@@ -191,7 +191,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
       }
     end
     assert_redirected_to purchase_all_carts_path
-    assert_equal "กรุณาอัพโหลดหลักฐานการชำระเงิน", flash[:alert]
+    assert_equal "กรุณาอัปโหลดหลักฐานการชำระเงิน", flash[:alert]
     assert_not @product1.reload.sold?
   end
 

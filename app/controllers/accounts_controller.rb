@@ -32,7 +32,7 @@ class AccountsController < ApplicationController
   def update
     @user = Current.user
     if @user.update(user_params)
-      redirect_to accounts_path, notice: "อัพเดทข้อมูลสำเร็จ",
+      redirect_to accounts_path, notice: "อัปเดตข้อมูลสำเร็จ",
       data: { testid: "account-update-success-notice" }
     else
       flash.now[:alert] = "กรุณาตรวจสอบข้อมูลที่กรอก"

@@ -76,7 +76,7 @@ class CartsController < ApplicationController
     end
 
     if payment_method == "promptpay" && params[:buy_now][:proof_of_payment].blank?
-      redirect_to purchase_all_carts_path, alert: "กรุณาอัพโหลดหลักฐานการชำระเงิน",
+      redirect_to purchase_all_carts_path, alert: "กรุณาอัปโหลดหลักฐานการชำระเงิน",
       data: { testid: "cart-purchase-all-error-notice" }
       return
     end
