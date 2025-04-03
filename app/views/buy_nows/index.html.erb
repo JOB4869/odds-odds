@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center w-full max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 py-2">
   <div class="w-full">
     <div class="text-2xl font-semibold w-full mb-6">
-      <h1 data-testid="buy-now-index-title">รายการสินค้าที่ซื้อ</h1>
+      <h1 data-testid="buy-now-index-title">🧾 รายการสินค้าที่ซื้อ</h1>
     </div>
 
     <% if @buy_nows.any? %>
@@ -50,9 +50,8 @@
       <% end %>
     </div>
   <% else %>
-    <div class="text-center text-gray-500" data-testid="buy-now-index-empty-message">
+    <div class="text-center text-gray-500 mt-8" data-testid="buy-now-index-empty-message">
       <p>ยังไม่มีรายการสินค้าที่ซื้อ</p>
-      <%= link_to "ดูสินค้าทั้งหมด", products_path, class: "mt-4 inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600", data: { testid: "buy-now-index-view-all-products-link" } %>
     </div>
   <% end %>
     <% content_for :back_users do %>
