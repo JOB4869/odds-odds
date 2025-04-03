@@ -15,6 +15,16 @@
               local: true, 
               data: { turbo: false }, 
               html: { id: "account-form" }) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="bg-red-100 text-sm text-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert",
+    data: { testid: "account-form-error-message" }>
+      <ul class="mt-1">
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="space-y-6">
     <div>
       <div class="flex items-center">
@@ -26,7 +36,7 @@
       <div class="relative">
         <%= f.text_field :first_name,
             class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-            placeholder: "กรุณากรอก ชื่อ เป็นตัวอักษร" %>
+            placeholder: "กรุณากรอก ชื่อ เป็นตัวอักษร ภาษาไทย หรือ อังกฤษ" %>
       </div>
     </div>
 
@@ -40,7 +50,7 @@
       <div class="relative">
         <%= f.text_field :last_name,
             class: "mt-1 w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-            placeholder: "กรุณากรอก นามสกุล เป็นตัวอักษร" %>
+            placeholder: "กรุณากรอก นามสกุล เป็นตัวอักษร ภาษาไทย หรือ อังกฤษ" %>
       </div>
     </div>
 
@@ -109,13 +119,3 @@
   </div>
 <% end %>
 
-<% if @user.errors.any? %>
-  <div class="alert alert-danger",
-  data: { testid: "account-form-error-message" }>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
