@@ -2,25 +2,29 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: odds_odds_development
+  database: your_app_development
 
 test:
   <<: *default
-  database: odds_odds_test
+  database: your_app_test
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: odds_odds_db # ใช้ชื่อฐานข้อมูลหลักของคุณ
+
+  queue:
+    adapter: postgresql
+    encoding: unicode
+    database: odds_odds_db # คุณอาจต้องการใช้ฐานข้อมูลเดียวกัน หรือสร้างอีกฐานข้อมูลสำหรับ queue ก็ได้
+    username: odds_odds_db_user
+    password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
+    host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
+    port: 5432 # Default PostgreSQL port
 
 cable:
-  <<: *default
-  database: odds_odds_cable_production
-  url: <%= ENV['CABLE_DATABASE_URL'] %>
-
-queue:
-  <<: *default
-  database: odds_odds_queue_production
-  url: <%= ENV['QUEUE_DATABASE_URL'] %>
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
