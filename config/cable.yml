@@ -9,7 +9,9 @@ test:
   adapter: test
 
 production:
-  adapter: solid_cable
+  adapter: postgresql
+  url: <%= ENV['CABLE_DATABASE_URL'] %>
+  channel_prefix: odds_odds_production
   connects_to:
     database:
       writing: cable

@@ -14,3 +14,8 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+  
+  cable:
+    <<: *default
+    database: odds_odds_cable_production
+    url: <%= ENV['CABLE_DATABASE_URL'] %>
