@@ -6,25 +6,28 @@ default: &default
 
 development:
   <<: *default
-  database: your_app_development
+  database: your_development_database_name
 
 test:
   <<: *default
-  database: your_app_test
+  database: your_test_database_name
 
 production:
   <<: *default
-  database: odds_odds_db # ใช้ชื่อฐานข้อมูลหลักของคุณ
+  database: odds_odds_db
+  username: odds_odds_db_user
+  password: <%= ENV['DATABASE_PASSWORD'] %> # แนะนำให้ใช้ environment variable
+  host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
+  port: 5432 # เพิ่ม port เข้าไป
 
   queue:
-    adapter: postgresql
-    encoding: unicode
-    database: odds_odds_db # คุณอาจต้องการใช้ฐานข้อมูลเดียวกัน หรือสร้างอีกฐานข้อมูลสำหรับ queue ก็ได้
+    <<: *default
+    database: odds_odds_db
     username: odds_odds_db_user
-    password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
+    password: <%= ENV['DATABASE_PASSWORD'] %> # แนะนำให้ใช้ environment variable
     host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
-    port: 5432 # Default PostgreSQL port
+    port: 5432 # เพิ่ม port เข้าไป
 
 cable:
-  adapter: redis
+  <<: *default
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
