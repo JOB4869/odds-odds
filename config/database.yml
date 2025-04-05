@@ -19,3 +19,8 @@ cable:
   <<: *default
   database: odds_odds_cable_production
   url: <%= ENV['CABLE_DATABASE_URL'] %>
+
+queue:
+  <<: *default
+  database: odds_odds_queue_production
+  url: <%= ENV['QUEUE_DATABASE_URL'] %>
