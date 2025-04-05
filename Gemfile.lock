@@ -423,7 +423,7 @@ DEPENDENCIES
   selenium-webdriver
   solid_cable
   solid_cache
-  solid_queue
+  solid_queue (~> 0.3.0)
   stimulus-rails
   tailwindcss-rails (~> 4.2.1)
   thruster
