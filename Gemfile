@@ -31,6 +31,9 @@ gem "solid_queue", "~> 0.3.0"  # Adjust this to a known working version
 
 gem "solid_cable"
 
+gem "redis"
+
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
