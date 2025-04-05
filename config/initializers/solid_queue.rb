@@ -1,4 +1,4 @@
-require "solid_queue"
+# require "solid_queue"
 
-SolidQueue.configure do |config|
-end
+# SolidQueue.configure do |config|
+# end
