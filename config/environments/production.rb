@@ -87,4 +87,7 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.assets.compile = false  # เพื่อให้โหลดไฟล์จาก precompiled assets
+  config.assets.digest = true   # เพื่อให้แน่ใจว่าไฟล์มี hash เพื่อ cache ได้
+  config.assets.precompile += %w[ tailwind-18293f78.css ]
 end
