@@ -35,6 +35,7 @@ production:
     host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
     port: 5432
     sslmode: require
+    default_role: writer
 
   queue:
     adapter: postgresql
