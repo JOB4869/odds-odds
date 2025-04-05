@@ -10,7 +10,7 @@ development:
   database: odds_odds_db
   pool: 5
   username: odds_odds_db_user
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
   host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
   port: 5432
 
@@ -20,7 +20,7 @@ test:
   database: odds_odds_db
   pool: 5
   username: odds_odds_db_user
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
 
 production:
   adapter: postgresql
@@ -28,7 +28,7 @@ production:
   database: odds_odds_db
   pool: 5
   username: odds_odds_db_user
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
   host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
   port: 5432
 
@@ -36,7 +36,7 @@ production:
     <<: *default
     database: odds_odds_db
     username: odds_odds_db_user
-    password: <%= ENV['DATABASE_PASSWORD'] %>
+    password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
     host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
     port: 5432 # เพิ่ม port เข้าไป
 
