@@ -23,17 +23,19 @@ test:
   password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: odds_odds_db
-  pool: 5
-  username: odds_odds_db_user
-  password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
-  host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
-  port: 5432
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    database: odds_odds_db
+    pool: 5
+    username: odds_odds_db_user
+    password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
+    host: dpg-cvom0dre5dus73c66mh0-a.oregon-postgres.render.com
+    port: 5432
 
   queue:
-    <<: *default
+    adapter: postgresql
+    encoding: unicode
     database: odds_odds_db
     username: odds_odds_db_user
     password: V8H3X58qVum4X7QIYU25P5VTEEtj722K
