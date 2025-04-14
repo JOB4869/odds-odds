@@ -25,8 +25,12 @@
 
   </div>
 
-  <div class="mb-6 flex justify-center">
-    <%= image_tag "qr_code_odds.svg", class: "qr-code-odds", alt: "QR Code Payment", data: { testid: "buy-now-new-qr-code-odds" } %>
+  <div class="mb-6 flex justify-between items-start px-8 py-2">
+    <div>
+      <label class="block text-base font-medium" data-testid="purchase-promptpay-label-tipco">พร้อมเพย์</label>
+      <label class="text-base px-2 bg-gray-50 rounded-md block mt-2" data-testid="purchase-promptpay-beers">0933233293</label>
+      <label class="text-base px-2 bg-gray-50 rounded-md block" data-testid="purchase-promptpay-name">Twin Panitsombat</label>
+    </div>
   </div>
 
   <%= form_with(model: @buy_now, local: true, class: "w-full") do |f| %>
