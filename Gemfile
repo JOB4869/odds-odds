@@ -27,7 +27,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue", "~> 0.3.0"  # Adjust this to a known working version
+gem "solid_queue", "~> 1.1.5"  # Adjust this to a known working version
 
 gem "solid_cable"
 
