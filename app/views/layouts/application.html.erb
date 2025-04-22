@@ -11,79 +11,17 @@
     <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="<%= asset_path 'PICTURE.svg' %>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<%= asset_path 'PICTURE.svg' %>">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
-    <style> 
-      .logo-container {
-        position: relative;
-        width: 140px;
-        height: 80px;
-        cursor: pointer;
-        padding: 1rem;
-        transition: all 0.3s ease;
-      }
-
-      .logo-container img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        transition: opacity 0.3s ease;
-      }
-
-      .logo-normal {
-        opacity: 1;
-      }
-
-      .logo-hover, .logo-active {
-        opacity: 0;
-      }
-
-      .logo-container:hover .logo-normal {
-        opacity: 0;
-      }
-
-      .logo-container:hover .logo-hover {
-        opacity: 1;
-      }
-
-      .logo-container:active .logo-hover {
-        opacity: 0;
-      }
-
-      .logo-container:active .logo-active {
-        opacity: 1;
-      }
-
-      .header-container {
-        margin-bottom: 0.5rem;
-        background-color: white;
-      }
-
-      .bottom-container {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: transparent;
-        text-align: center;
-      }
-      .content {
-        margin-bottom: 80px;
-      }
-
-    </style> 
   </head>
 
   <body>
-    <div class="header-container">
+    <div class="header-container" data-controller="logo">
       <%= render partial: "header/logo" %>
     </div>
     <%= turbo_frame_tag "modal" %>
@@ -91,7 +29,7 @@
       <%= render partial: "header/flash" if lookup_context.exists?("header/_flash") %>
         <%= yield %>
     </main>
-    <div class="bottom-container">
+    <div class="bottom-container" data-controller="logo">
       <%= yield :footer %>
       <%= yield :button_product %>
       <%= yield :back_home %>
